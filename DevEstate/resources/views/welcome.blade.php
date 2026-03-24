@@ -3,138 +3,862 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel</title>
-
-        <!-- Fonts -->
+        <title>DevEstate | Modern Real Estate Interface</title>
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-
-        <!-- Styles -->
+        <link href="https://fonts.bunny.net/css?family=manrope:400,500,600,700,800|playfair-display:600,700&display=swap" rel="stylesheet" />
         <style>
-            /* ! tailwindcss v3.2.4 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:Figtree, sans-serif;font-feature-settings:normal}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;font-weight:inherit;line-height:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]{display:none}*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }::-webkit-backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }.relative{position:relative}.mx-auto{margin-left:auto;margin-right:auto}.mx-6{margin-left:1.5rem;margin-right:1.5rem}.ml-4{margin-left:1rem}.mt-16{margin-top:4rem}.mt-6{margin-top:1.5rem}.mt-4{margin-top:1rem}.-mt-px{margin-top:-1px}.mr-1{margin-right:0.25rem}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.h-16{height:4rem}.h-7{height:1.75rem}.h-6{height:1.5rem}.h-5{height:1.25rem}.min-h-screen{min-height:100vh}.w-auto{width:auto}.w-16{width:4rem}.w-7{width:1.75rem}.w-6{width:1.5rem}.w-5{width:1.25rem}.max-w-7xl{max-width:80rem}.shrink-0{flex-shrink:0}.scale-100{--tw-scale-x:1;--tw-scale-y:1;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.items-center{align-items:center}.justify-center{justify-content:center}.gap-6{gap:1.5rem}.gap-4{gap:1rem}.self-center{align-self:center}.rounded-lg{border-radius:0.5rem}.rounded-full{border-radius:9999px}.bg-gray-100{--tw-bg-opacity:1;background-color:rgb(243 244 246 / var(--tw-bg-opacity))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity))}.bg-red-50{--tw-bg-opacity:1;background-color:rgb(254 242 242 / var(--tw-bg-opacity))}.bg-dots-darker{background-image:url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(0,0,0,0.07)'/%3E%3C/svg%3E")}.from-gray-700\/50{--tw-gradient-from:rgb(55 65 81 / 0.5);--tw-gradient-to:rgb(55 65 81 / 0);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.via-transparent{--tw-gradient-to:rgb(0 0 0 / 0);--tw-gradient-stops:var(--tw-gradient-from), transparent, var(--tw-gradient-to)}.bg-center{background-position:center}.stroke-red-500{stroke:#ef4444}.stroke-gray-400{stroke:#9ca3af}.p-6{padding:1.5rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.text-center{text-align:center}.text-right{text-align:right}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.font-semibold{font-weight:600}.leading-relaxed{line-height:1.625}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99 / var(--tw-text-opacity))}.text-gray-900{--tw-text-opacity:1;color:rgb(17 24 39 / var(--tw-text-opacity))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity))}.underline{-webkit-text-decoration-line:underline;text-decoration-line:underline}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-gray-500\/20{--tw-shadow-color:rgb(107 114 128 / 0.2);--tw-shadow:var(--tw-shadow-colored)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.selection\:bg-red-500 *::selection{--tw-bg-opacity:1;background-color:rgb(239 68 68 / var(--tw-bg-opacity))}.selection\:text-white *::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.selection\:bg-red-500::selection{--tw-bg-opacity:1;background-color:rgb(239 68 68 / var(--tw-bg-opacity))}.selection\:text-white::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.hover\:text-gray-900:hover{--tw-text-opacity:1;color:rgb(17 24 39 / var(--tw-text-opacity))}.hover\:text-gray-700:hover{--tw-text-opacity:1;color:rgb(55 65 81 / var(--tw-text-opacity))}.focus\:rounded-sm:focus{border-radius:0.125rem}.focus\:outline:focus{outline-style:solid}.focus\:outline-2:focus{outline-width:2px}.focus\:outline-red-500:focus{outline-color:#ef4444}.group:hover .group-hover\:stroke-gray-600{stroke:#4b5563}@media (prefers-reduced-motion: no-preference){.motion-safe\:hover\:scale-\[1\.01\]:hover{--tw-scale-x:1.01;--tw-scale-y:1.01;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}}@media (prefers-color-scheme: dark){.dark\:bg-gray-900{--tw-bg-opacity:1;background-color:rgb(17 24 39 / var(--tw-bg-opacity))}.dark\:bg-gray-800\/50{background-color:rgb(31 41 55 / 0.5)}.dark\:bg-red-800\/20{background-color:rgb(153 27 27 / 0.2)}.dark\:bg-dots-lighter{background-image:url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(255,255,255,0.07)'/%3E%3C/svg%3E")}.dark\:bg-gradient-to-bl{background-image:linear-gradient(to bottom left, var(--tw-gradient-stops))}.dark\:stroke-gray-600{stroke:#4b5563}.dark\:text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity))}.dark\:text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.dark\:shadow-none{--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.dark\:ring-1{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.dark\:ring-inset{--tw-ring-inset:inset}.dark\:ring-white\/5{--tw-ring-color:rgb(255 255 255 / 0.05)}.dark\:hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.group:hover .dark\:group-hover\:stroke-gray-400{stroke:#9ca3af}}@media (min-width: 640px){.sm\:fixed{position:fixed}.sm\:top-0{top:0px}.sm\:right-0{right:0px}.sm\:ml-0{margin-left:0px}.sm\:flex{display:flex}.sm\:items-center{align-items:center}.sm\:justify-center{justify-content:center}.sm\:justify-between{justify-content:space-between}.sm\:text-left{text-align:left}.sm\:text-right{text-align:right}}@media (min-width: 768px){.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}}@media (min-width: 1024px){.lg\:gap-8{gap:2rem}.lg\:p-8{padding:2rem}}
+            :root {
+                --navy: #1E3A5F;
+                --navy-soft: #2C4E73;
+                --navy-deep: #1E293B;
+                --white: #FFFFFF;
+                --gold: #D4A017;
+                --gold-deep: #B8870F;
+                --bg-light: #F5F7FA;
+                --bg-soft: #F8FAFC;
+                --text-dark: #1F2937;
+                --text-muted: #374151;
+                --text-slate: #334155;
+                --border: #E5E7EB;
+                --input-border: #CBD5E1;
+                --success: #22C55E;
+                --danger: #EF4444;
+                --radius-sm: 8px;
+                --radius-md: 12px;
+                --radius-lg: 24px;
+                --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.08);
+                --shadow-card: 0 14px 30px rgba(30, 58, 95, 0.10);
+                --shadow-strong: 0 24px 60px rgba(15, 23, 42, 0.16);
+                --container: 1180px;
+            }
+
+            * { box-sizing: border-box; }
+            html { scroll-behavior: smooth; }
+            body {
+                margin: 0;
+                font-family: "Manrope", sans-serif;
+                color: var(--text-dark);
+                background:
+                    radial-gradient(circle at top left, rgba(212, 160, 23, 0.12), transparent 28%),
+                    linear-gradient(180deg, #f8fafc 0%, #f5f7fa 24%, #ffffff 100%);
+            }
+
+            a { color: inherit; text-decoration: none; }
+            img { max-width: 100%; display: block; }
+            button, input, select { font: inherit; }
+
+            .container { width: min(var(--container), calc(100% - 2rem)); margin: 0 auto; }
+            .eyebrow {
+                display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.45rem 0.85rem; border-radius: 999px;
+                background: rgba(212, 160, 23, 0.12); color: var(--navy); font-size: 0.82rem; font-weight: 800;
+                letter-spacing: 0.08em; text-transform: uppercase;
+            }
+            .section-title {
+                margin: 0; color: var(--navy); font-family: "Playfair Display", serif;
+                font-size: clamp(2rem, 3vw, 3.4rem); line-height: 1.08;
+            }
+            .section-copy { margin: 0; max-width: 680px; color: var(--text-muted); line-height: 1.7; }
+            .page-shell { position: relative; overflow: hidden; padding-bottom: 6rem; }
+            .page-shell::before {
+                content: ""; position: absolute; top: -180px; right: -140px; width: 420px; height: 420px; border-radius: 50%;
+                background: radial-gradient(circle, rgba(30, 58, 95, 0.12), transparent 70%); pointer-events: none;
+            }
+
+            .site-header {
+                position: sticky; top: 0; z-index: 20; backdrop-filter: blur(18px);
+                background: rgba(30, 58, 95, 0.94); border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            }
+            .nav-bar {
+                display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 78px;
+            }
+            .brand { display: flex; align-items: center; gap: 0.8rem; color: var(--white); font-weight: 800; letter-spacing: 0.02em; }
+            .brand-mark {
+                display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px;
+                background: linear-gradient(135deg, var(--gold), #f0c96a); color: var(--navy);
+                box-shadow: 0 12px 22px rgba(212, 160, 23, 0.28);
+            }
+            .brand-stack strong, .brand-stack span { display: block; }
+            .brand-stack span { color: rgba(255, 255, 255, 0.7); font-size: 0.75rem; font-weight: 600; }
+            .nav-links {
+                display: flex; align-items: center; gap: 1.4rem; color: rgba(255, 255, 255, 0.84); font-size: 0.95rem; font-weight: 600;
+            }
+            .nav-links a:hover { color: var(--white); }
+            .nav-actions { display: flex; align-items: center; gap: 0.8rem; }
+
+            .btn {
+                display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem; min-height: 46px; padding: 10px 16px;
+                border-radius: var(--radius-sm); border: none; font-weight: 700; cursor: pointer;
+                transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+            }
+            .btn:hover { transform: translateY(-1px); }
+            .btn-primary { background: var(--navy); color: var(--white); box-shadow: 0 12px 24px rgba(30, 58, 95, 0.22); }
+            .btn-primary:hover { background: var(--navy-soft); }
+            .btn-accent { background: var(--gold); color: var(--white); box-shadow: 0 12px 24px rgba(212, 160, 23, 0.28); }
+            .btn-accent:hover { background: var(--gold-deep); }
+            .btn-success { background: var(--success); color: var(--white); }
+            .btn-danger { background: var(--danger); color: var(--white); }
+            .btn-outline { background: transparent; color: var(--navy); border: 2px solid var(--navy); }
+
+            .hero { padding: 2rem 0 3rem; background: var(--bg-light); }
+            .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 1.6rem; align-items: stretch; }
+            .hero-panel {
+                position: relative; min-height: 620px; padding: 2rem; border-radius: 28px; overflow: hidden;
+                background:
+                    linear-gradient(rgba(30, 58, 95, 0.75), rgba(30, 58, 95, 0.82)),
+                    url('https://images.unsplash.com/photo-1600585154084-4e5fe7c39198?auto=format&fit=crop&w=1400&q=80') center/cover;
+                box-shadow: var(--shadow-strong);
+            }
+            .hero-panel::after {
+                content: ""; position: absolute; inset: auto -60px -80px auto; width: 240px; height: 240px; border-radius: 50%;
+                background: radial-gradient(circle, rgba(212, 160, 23, 0.35), transparent 70%);
+            }
+            .hero-content {
+                position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: space-between; height: 100%; color: var(--white);
+            }
+            .hero-copy h1 {
+                margin: 1.2rem 0 1rem; font-family: "Playfair Display", serif; font-size: clamp(3rem, 5vw, 5rem);
+                line-height: 0.98; max-width: 9.5ch;
+            }
+            .hero-copy p {
+                margin: 0 0 1.8rem; max-width: 600px; color: rgba(255, 255, 255, 0.82); line-height: 1.8; font-size: 1.04rem;
+            }
+            .hero-actions, .inline-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+            .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+            .stat-card {
+                padding: 1rem 1.1rem; border-radius: 18px; background: rgba(255, 255, 255, 0.12);
+                border: 1px solid rgba(255, 255, 255, 0.14); backdrop-filter: blur(8px);
+            }
+            .stat-card strong { display: block; font-size: 1.35rem; margin-bottom: 0.25rem; }
+            .stat-card span { color: rgba(255, 255, 255, 0.74); font-size: 0.9rem; }
+            .stack { display: grid; gap: 1.2rem; }
+
+            .panel, .card {
+                background: var(--white); border: 1px solid rgba(148, 163, 184, 0.16); border-radius: 24px; box-shadow: var(--shadow-soft);
+            }
+            .search-panel { padding: 1.4rem; background: #EEF2F7; }
+            .panel-head {
+                display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.2rem;
+            }
+            .panel-head h2, .panel-head h3, .card h3, .card h4 { margin: 0; color: var(--navy); }
+            .muted { color: var(--text-slate); }
+            .search-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
+            .field { display: grid; gap: 0.45rem; }
+            .field label { color: var(--text-slate); font-size: 0.9rem; font-weight: 700; }
+            .field input, .field select {
+                width: 100%; min-height: 48px; padding: 0.8rem 0.95rem; border-radius: 12px; border: 1px solid var(--input-border);
+                background: var(--white); color: var(--text-dark);
+            }
+            .tags { display: flex; flex-wrap: wrap; gap: 0.65rem; margin-top: 1rem; }
+            .tag {
+                display: inline-flex; align-items: center; padding: 0.5rem 0.8rem; border-radius: 999px; font-size: 0.84rem; font-weight: 700;
+                background: rgba(212, 160, 23, 0.16); color: #8a670b;
+            }
+            .mini-card { padding: 1.4rem; }
+            .mini-card p { margin: 0.55rem 0 0; color: var(--text-muted); line-height: 1.7; }
+            .kpi {
+                display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.1rem; padding-top: 1rem; border-top: 1px solid var(--border);
+            }
+            .kpi strong { display: block; color: var(--navy); font-size: 1.1rem; }
+            .section { padding: 5rem 0; }
+            .section.alt { background: linear-gradient(180deg, rgba(245, 247, 250, 0.6), rgba(255, 255, 255, 0)); }
+            .section-head {
+                display: flex; align-items: end; justify-content: space-between; gap: 1.5rem; margin-bottom: 2rem;
+            }
+            .property-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+            .property-card {
+                overflow: hidden; background: #F9FAFB; border: 1px solid var(--border); border-radius: 22px; box-shadow: var(--shadow-card);
+            }
+            .property-media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+            .property-media img { width: 100%; height: 100%; object-fit: cover; }
+            .property-chip {
+                position: absolute; top: 1rem; left: 1rem; padding: 0.45rem 0.8rem; border-radius: 999px; background: rgba(255, 255, 255, 0.92);
+                color: var(--navy); font-size: 0.8rem; font-weight: 800;
+            }
+            .property-body { padding: 1.35rem; }
+            .property-meta, .detail-meta, .card-list, .split-list, .mobile-menu { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+            .property-meta span, .detail-meta span, .split-list span {
+                padding: 0.48rem 0.72rem; border-radius: 999px; background: #E2E8F0; color: var(--text-slate); font-size: 0.82rem; font-weight: 700;
+            }
+            .property-card h3 { margin: 0.9rem 0 0.55rem; font-size: 1.2rem; color: var(--navy); }
+            .property-card p { margin: 0; color: var(--text-muted); line-height: 1.7; }
+            .price-row {
+                display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.2rem;
+            }
+            .price { color: var(--gold); font-size: 1.35rem; font-weight: 800; }
+            .detail-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1.4rem; align-items: start; }
+            .detail-gallery { padding: 1.2rem; background: var(--bg-soft); }
+            .detail-hero-image { overflow: hidden; border-radius: 18px; margin-bottom: 1rem; }
+            .detail-hero-image img { aspect-ratio: 16 / 10; width: 100%; object-fit: cover; }
+            .thumb-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
+            .thumb-grid img { border-radius: 16px; aspect-ratio: 4 / 3; object-fit: cover; }
+            .detail-card { padding: 1.6rem; }
+            .detail-card h3 { font-size: 2rem; margin-bottom: 0.5rem; }
+            .detail-description { margin: 1.2rem 0 1.6rem; color: var(--text-muted); line-height: 1.8; }
+            .detail-list { display: grid; gap: 0.9rem; margin: 1.4rem 0 1.6rem; }
+            .detail-item, .upload-status, .dashboard-stat {
+                display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.95rem 1rem;
+                border-radius: 14px; background: #F8FAFC; border: 1px solid #E2E8F0;
+            }
+            .detail-item strong, .dashboard-stat strong { color: var(--navy); }
+            .map-layout, .admin-layout, .mobile-layout { display: grid; grid-template-columns: 1fr 0.95fr; gap: 1.4rem; }
+            .map-card { padding: 1.25rem; background: var(--white); }
+            .map-surface {
+                position: relative; min-height: 420px; border-radius: 22px; overflow: hidden;
+                background:
+                    linear-gradient(120deg, rgba(30, 58, 95, 0.08), rgba(212, 160, 23, 0.08)),
+                    radial-gradient(circle at 30% 20%, rgba(30, 58, 95, 0.08), transparent 30%),
+                    #f8fafc;
+                border: 1px solid #E2E8F0;
+            }
+            .map-grid {
+                position: absolute; inset: 0;
+                background-image:
+                    linear-gradient(rgba(148, 163, 184, 0.14) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(148, 163, 184, 0.14) 1px, transparent 1px);
+                background-size: 62px 62px;
+            }
+            .road { position: absolute; background: rgba(148, 163, 184, 0.35); border-radius: 999px; }
+            .road.horizontal { height: 10px; width: 72%; top: 48%; left: 14%; }
+            .road.vertical { width: 10px; height: 74%; left: 48%; top: 13%; }
+            .map-label { position: absolute; color: var(--navy); font-weight: 800; font-size: 0.84rem; }
+            .map-pin {
+                position: absolute; width: 20px; height: 20px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg);
+                background: var(--gold); box-shadow: 0 8px 18px rgba(212, 160, 23, 0.42);
+            }
+            .map-pin::after { content: ""; position: absolute; inset: 5px; border-radius: 50%; background: var(--white); }
+            .nearby-panel, .upload-card, .dashboard-card, .login-card, .phone-shell { padding: 1.5rem; }
+            .nearby-list, .dashboard-grid { display: grid; gap: 0.9rem; }
+            .nearby-item {
+                display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+                padding: 1rem; border-radius: 14px; background: #F8FAFC; border: 1px solid #E2E8F0;
+            }
+            .nearby-item span:last-child {
+                padding: 0.38rem 0.7rem; border-radius: 999px; background: #E2E8F0; color: var(--text-slate); font-size: 0.8rem; font-weight: 700;
+            }
+            .upload-wrap { display: grid; gap: 1.2rem; }
+            .upload-dropzone {
+                display: grid; place-items: center; min-height: 260px; padding: 1.4rem; text-align: center;
+                border-radius: 20px; background: var(--white); border: 2px dashed #94A3B8;
+            }
+            .upload-dropzone strong { color: var(--navy); font-size: 1.15rem; }
+            .upload-dropzone p { margin: 0.6rem 0 0; max-width: 380px; color: var(--text-muted); line-height: 1.7; }
+            .upload-status.success { color: #166534; background: rgba(34, 197, 94, 0.10); border-color: rgba(34, 197, 94, 0.24); }
+            .upload-status.error { color: #991B1B; background: rgba(239, 68, 68, 0.10); border-color: rgba(239, 68, 68, 0.24); }
+            .admin-shell { background: #F1F5F9; border-radius: 28px; padding: 1.2rem; box-shadow: var(--shadow-card); }
+            .dashboard-shell { display: grid; grid-template-columns: 260px 1fr; gap: 1.2rem; }
+            .sidebar { padding: 1.25rem; border-radius: 24px; background: var(--navy-deep); color: rgba(255, 255, 255, 0.86); }
+            .sidebar h3 { margin: 0 0 1rem; color: var(--white); }
+            .menu-list { display: grid; gap: 0.65rem; margin-top: 1.2rem; }
+            .menu-item {
+                display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; padding: 0.95rem 1rem;
+                border-radius: 14px; background: transparent; font-weight: 700;
+            }
+            .menu-item.active { background: #334155; color: var(--white); }
+            .menu-item .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--gold); }
+            .dashboard-main { display: grid; gap: 1.2rem; }
+            .dashboard-overview { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+            .dashboard-card { background: var(--white); border-radius: 20px; box-shadow: var(--shadow-soft); }
+            .highlight { color: var(--gold); font-weight: 800; }
+            .dashboard-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+            .dashboard-table th, .dashboard-table td {
+                padding: 0.95rem 0; text-align: left; border-bottom: 1px solid #E2E8F0; color: #0F172A;
+            }
+            .dashboard-table th { color: #475569; font-size: 0.83rem; text-transform: uppercase; letter-spacing: 0.06em; }
+            .login-section { padding: 5rem 0; background: linear-gradient(135deg, #1E3A5F 0%, #2C4E73 100%); }
+            .login-shell { display: grid; grid-template-columns: 0.95fr 0.8fr; gap: 1.5rem; align-items: center; }
+            .login-copy { color: var(--white); }
+            .login-copy h2 { color: var(--white); }
+            .login-card { background: var(--white); border-radius: 24px; box-shadow: var(--shadow-strong); }
+            .login-form { display: grid; gap: 1rem; margin-top: 1.4rem; }
+            .login-form input {
+                min-height: 50px; border: 1px solid var(--input-border); border-radius: 12px; padding: 0.85rem 0.95rem;
+            }
+            .login-form .meta-row {
+                display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-size: 0.9rem; color: var(--text-muted);
+            }
+            .phone-shell {
+                max-width: 390px; margin-left: auto; border-radius: 32px; background: var(--white);
+                box-shadow: var(--shadow-strong); border: 10px solid #E2E8F0;
+            }
+            .phone-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+            .phone-screen { padding: 1rem; border-radius: 24px; background: #F9FAFB; }
+            .phone-card { padding: 1rem; border-radius: 18px; background: var(--white); box-shadow: var(--shadow-soft); }
+            .phone-card img { border-radius: 16px; aspect-ratio: 4 / 3; object-fit: cover; margin-bottom: 0.9rem; }
+            .phone-bottom-nav {
+                display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; margin-top: 1rem;
+                padding: 0.9rem; border-radius: 18px; background: var(--navy); color: rgba(255, 255, 255, 0.68);
+            }
+            .nav-icon { display: grid; gap: 0.3rem; justify-items: center; font-size: 0.75rem; font-weight: 700; }
+            .nav-icon strong {
+                display: grid; place-items: center; width: 34px; height: 34px; border-radius: 12px; background: rgba(255, 255, 255, 0.12); color: inherit;
+            }
+            .nav-icon.active { color: var(--gold); }
+            .footer { padding: 2rem 0 6rem; color: #64748B; text-align: center; font-size: 0.95rem; }
+
+            @media (max-width: 1100px) {
+                .hero-grid, .detail-layout, .map-layout, .admin-layout, .mobile-layout, .login-shell, .dashboard-shell { grid-template-columns: 1fr; }
+                .property-grid, .dashboard-overview { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+                .nav-links { display: none; }
+            }
+
+            @media (max-width: 780px) {
+                .hero { padding-top: 1rem; }
+                .hero-panel { min-height: auto; }
+                .search-grid, .property-grid, .dashboard-overview, .thumb-grid, .stats-row { grid-template-columns: 1fr; }
+                .section-head, .panel-head, .nav-bar, .price-row, .phone-top { align-items: start; flex-direction: column; }
+                .nav-actions { width: 100%; }
+                .nav-actions .btn { flex: 1; }
+                .container { width: min(var(--container), calc(100% - 1.2rem)); }
+                .section, .login-section { padding: 3.75rem 0; }
+            }
         </style>
     </head>
-    <body class="antialiased">
-        <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-            @if (Route::has('login'))
-                <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
-                    @auth
-                        <a href="{{ url('/home') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
-                        @endif
-                    @endauth
+    <body>
+        <div class="page-shell">
+            <header class="site-header">
+                <div class="container nav-bar">
+                    <a href="#home" class="brand">
+                        <span class="brand-mark">DE</span>
+                        <span class="brand-stack">
+                            <strong>DevEstate</strong>
+                            <span>Luxury Property Platform</span>
+                        </span>
+                    </a>
+                    <nav class="nav-links">
+                        <a href="#listings">Properties</a>
+                        <a href="#details">Details</a>
+                        <a href="#map">Locations</a>
+                        <a href="#admin">Admin</a>
+                        <a href="#login">Login</a>
+                    </nav>
+                    <div class="nav-actions">
+                        <a href="#dashboard" class="btn btn-outline" style="color:#FFFFFF; border-color:rgba(255,255,255,0.36);">Dashboard</a>
+                        <a href="#listings" class="btn btn-accent">View Listings</a>
+                    </div>
                 </div>
-            @endif
+            </header>
 
-            <div class="max-w-7xl mx-auto p-6 lg:p-8">
-                <div class="flex justify-center">
-                    <svg viewBox="0 0 62 65" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto bg-gray-100 dark:bg-gray-900">
-                        <path d="M61.8548 14.6253C61.8778 14.7102 61.8895 14.7978 61.8897 14.8858V28.5615C61.8898 28.737 61.8434 28.9095 61.7554 29.0614C61.6675 29.2132 61.5409 29.3392 61.3887 29.4265L49.9104 36.0351V49.1337C49.9104 49.4902 49.7209 49.8192 49.4118 49.9987L25.4519 63.7916C25.3971 63.8227 25.3372 63.8427 25.2774 63.8639C25.255 63.8714 25.2338 63.8851 25.2101 63.8913C25.0426 63.9354 24.8666 63.9354 24.6991 63.8913C24.6716 63.8838 24.6467 63.8689 24.6205 63.8589C24.5657 63.8389 24.5084 63.8215 24.456 63.7916L0.501061 49.9987C0.348882 49.9113 0.222437 49.7853 0.134469 49.6334C0.0465019 49.4816 0.000120578 49.3092 0 49.1337L0 8.10652C0 8.01678 0.0124642 7.92953 0.0348998 7.84477C0.0423783 7.8161 0.0598282 7.78993 0.0697995 7.76126C0.0884958 7.70891 0.105946 7.65531 0.133367 7.6067C0.152063 7.5743 0.179485 7.54812 0.20192 7.51821C0.230588 7.47832 0.256763 7.43719 0.290416 7.40229C0.319084 7.37362 0.356476 7.35243 0.388883 7.32751C0.425029 7.29759 0.457436 7.26518 0.498568 7.2415L12.4779 0.345059C12.6296 0.257786 12.8015 0.211853 12.9765 0.211853C13.1515 0.211853 13.3234 0.257786 13.475 0.345059L25.4531 7.2415H25.4556C25.4955 7.26643 25.5292 7.29759 25.5653 7.32626C25.5977 7.35119 25.6339 7.37362 25.6625 7.40104C25.6974 7.43719 25.7224 7.47832 25.7523 7.51821C25.7735 7.54812 25.8021 7.5743 25.8196 7.6067C25.8483 7.65656 25.8645 7.70891 25.8844 7.76126C25.8944 7.78993 25.9118 7.8161 25.9193 7.84602C25.9423 7.93096 25.954 8.01853 25.9542 8.10652V33.7317L35.9355 27.9844V14.8846C35.9355 14.7973 35.948 14.7088 35.9704 14.6253C35.9792 14.5954 35.9954 14.5692 36.0053 14.5405C36.0253 14.4882 36.0427 14.4346 36.0702 14.386C36.0888 14.3536 36.1163 14.3274 36.1375 14.2975C36.1674 14.2576 36.1923 14.2165 36.2272 14.1816C36.2559 14.1529 36.292 14.1317 36.3244 14.1068C36.3618 14.0769 36.3942 14.0445 36.4341 14.0208L48.4147 7.12434C48.5663 7.03694 48.7383 6.99094 48.9133 6.99094C49.0883 6.99094 49.2602 7.03694 49.4118 7.12434L61.3899 14.0208C61.4323 14.0457 61.4647 14.0769 61.5021 14.1055C61.5333 14.1305 61.5694 14.1529 61.5981 14.1803C61.633 14.2165 61.6579 14.2576 61.6878 14.2975C61.7103 14.3274 61.7377 14.3536 61.7551 14.386C61.7838 14.4346 61.8 14.4882 61.8199 14.5405C61.8312 14.5692 61.8474 14.5954 61.8548 14.6253ZM59.893 27.9844V16.6121L55.7013 19.0252L49.9104 22.3593V33.7317L59.8942 27.9844H59.893ZM47.9149 48.5566V37.1768L42.2187 40.4299L25.953 49.7133V61.2003L47.9149 48.5566ZM1.99677 9.83281V48.5566L23.9562 61.199V49.7145L12.4841 43.2219L12.4804 43.2194L12.4754 43.2169C12.4368 43.1945 12.4044 43.1621 12.3682 43.1347C12.3371 43.1097 12.3009 43.0898 12.2735 43.0624L12.271 43.0586C12.2386 43.0275 12.2162 42.9888 12.1887 42.9539C12.1638 42.9203 12.1339 42.8916 12.114 42.8567L12.1127 42.853C12.0903 42.8156 12.0766 42.7707 12.0604 42.7283C12.0442 42.6909 12.023 42.656 12.013 42.6161C12.0005 42.5688 11.998 42.5177 11.9931 42.4691C11.9881 42.4317 11.9781 42.3943 11.9781 42.3569V15.5801L6.18848 12.2446L1.99677 9.83281ZM12.9777 2.36177L2.99764 8.10652L12.9752 13.8513L22.9541 8.10527L12.9752 2.36177H12.9777ZM18.1678 38.2138L23.9574 34.8809V9.83281L19.7657 12.2459L13.9749 15.5801V40.6281L18.1678 38.2138ZM48.9133 9.14105L38.9344 14.8858L48.9133 20.6305L58.8909 14.8846L48.9133 9.14105ZM47.9149 22.3593L42.124 19.0252L37.9323 16.6121V27.9844L43.7219 31.3174L47.9149 33.7317V22.3593ZM24.9533 47.987L39.59 39.631L46.9065 35.4555L36.9352 29.7145L25.4544 36.3242L14.9907 42.3482L24.9533 47.987Z" fill="#FF2D20"/>
-                    </svg>
-                </div>
-
-                <div class="mt-16">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-                        <a href="https://laravel.com/docs" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                                    </svg>
+            <main>
+                <section class="hero" id="home">
+                    <div class="container hero-grid">
+                        <article class="hero-panel">
+                            <div class="hero-content">
+                                <div class="hero-copy">
+                                    <span class="eyebrow">Premier Real Estate Interface</span>
+                                    <h1>Find refined spaces built for modern living.</h1>
+                                    <p>
+                                        A clean, professional property platform designed for trust, speed, and premium presentation.
+                                        This interface showcases landing, listings, search, property details, admin, and mobile experiences using a unified navy and gold system.
+                                    </p>
+                                    <div class="hero-actions">
+                                        <a href="#listings" class="btn btn-accent">Browse Properties</a>
+                                        <a href="#details" class="btn btn-outline" style="color:#FFFFFF; border-color:rgba(255,255,255,0.35);">View Showcase</a>
+                                    </div>
                                 </div>
-
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Documentation</h2>
-
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laravel has wonderful documentation covering every aspect of the framework. Whether you are a newcomer or have prior experience with Laravel, we recommend reading our documentation from beginning to end.
-                                </p>
+                                <div class="stats-row">
+                                    <div class="stat-card">
+                                        <strong>240+</strong>
+                                        <span>Curated premium listings</span>
+                                    </div>
+                                    <div class="stat-card">
+                                        <strong>18</strong>
+                                        <span>High-demand city districts</span>
+                                    </div>
+                                    <div class="stat-card">
+                                        <strong>96%</strong>
+                                        <span>Client match satisfaction</span>
+                                    </div>
+                                </div>
                             </div>
+                        </article>
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                            </svg>
-                        </a>
-
-                        <a href="https://laracasts.com" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
-                                    </svg>
+                        <div class="stack">
+                            <section class="panel search-panel">
+                                <div class="panel-head">
+                                    <div>
+                                        <h2>Search & Filter</h2>
+                                        <p class="muted">Corporate search experience with clear hierarchy and gold active tags.</p>
+                                    </div>
+                                    <a href="#listings" class="btn btn-primary">Search Now</a>
                                 </div>
+                                <div class="search-grid">
+                                    <div class="field">
+                                        <label for="location">Location</label>
+                                        <input id="location" type="text" value="Makati City" readonly>
+                                    </div>
+                                    <div class="field">
+                                        <label for="type">Property Type</label>
+                                        <select id="type"><option>Condominium</option></select>
+                                    </div>
+                                    <div class="field">
+                                        <label for="budget">Budget</label>
+                                        <input id="budget" type="text" value="$350,000 - $900,000" readonly>
+                                    </div>
+                                    <div class="field">
+                                        <label for="bedrooms">Bedrooms</label>
+                                        <select id="bedrooms"><option>3+ Bedrooms</option></select>
+                                    </div>
+                                </div>
+                                <div class="tags">
+                                    <span class="tag">Waterfront</span>
+                                    <span class="tag">Pet Friendly</span>
+                                    <span class="tag">Ready for Move-In</span>
+                                </div>
+                            </section>
 
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Laracasts</h2>
-
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript development. Check them out, see for yourself, and massively level up your development skills in the process.
+                            <section class="card mini-card">
+                                <span class="eyebrow">Consultation</span>
+                                <h3>Trusted guidance from inquiry to closing.</h3>
+                                <p>
+                                    The layout keeps calls-to-action prominent while supporting premium property storytelling, agent credibility, and quick decision-making.
                                 </p>
+                                <div class="kpi">
+                                    <div>
+                                        <strong>24/7</strong>
+                                        <span class="muted">Concierge response</span>
+                                    </div>
+                                    <a href="#login" class="btn btn-success">Contact Advisor</a>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="listings">
+                    <div class="container">
+                        <div class="section-head">
+                            <div>
+                                <span class="eyebrow">Property Listing Page</span>
+                                <h2 class="section-title">Premium listings with calm spacing and strong visual trust.</h2>
                             </div>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                            </svg>
-                        </a>
-
-                        <a href="https://laravel-news.com" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
-                                    </svg>
+                            <p class="section-copy">
+                                Property cards use a bright white and soft-gray canvas, subtle borders, navy headings, gold pricing, and consistent action buttons for a polished marketplace experience.
+                            </p>
+                        </div>
+                        <div class="property-grid">
+                            <article class="property-card">
+                                <div class="property-media">
+                                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=900&q=80" alt="Luxury house exterior">
+                                    <span class="property-chip">Featured</span>
                                 </div>
+                                <div class="property-body">
+                                    <div class="property-meta">
+                                        <span>4 Beds</span>
+                                        <span>3 Baths</span>
+                                        <span>420 sqm</span>
+                                    </div>
+                                    <h3>Skyline Ridge Residence</h3>
+                                    <p>Modern architecture with panoramic city views, smart-home finishes, and private landscaped entry.</p>
+                                    <div class="price-row">
+                                        <span class="price">$780,000</span>
+                                        <a href="#details" class="btn btn-primary">View Property</a>
+                                    </div>
+                                </div>
+                            </article>
+                            <article class="property-card">
+                                <div class="property-media">
+                                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80" alt="Contemporary residence">
+                                    <span class="property-chip">New</span>
+                                </div>
+                                <div class="property-body">
+                                    <div class="property-meta">
+                                        <span>3 Beds</span>
+                                        <span>2 Baths</span>
+                                        <span>280 sqm</span>
+                                    </div>
+                                    <h3>Parklane Executive Home</h3>
+                                    <p>Bright open-plan living with sculpted interiors, premium kitchen detailing, and quiet private access.</p>
+                                    <div class="price-row">
+                                        <span class="price">$620,000</span>
+                                        <a href="#details" class="btn btn-primary">View Property</a>
+                                    </div>
+                                </div>
+                            </article>
+                            <article class="property-card">
+                                <div class="property-media">
+                                    <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=900&q=80" alt="Penthouse interior">
+                                    <span class="property-chip">Top Rated</span>
+                                </div>
+                                <div class="property-body">
+                                    <div class="property-meta">
+                                        <span>5 Beds</span>
+                                        <span>4 Baths</span>
+                                        <span>510 sqm</span>
+                                    </div>
+                                    <h3>Harbor Crest Penthouse</h3>
+                                    <p>Refined penthouse suite with double-height windows, private terrace, and concierge-ready service access.</p>
+                                    <div class="price-row">
+                                        <span class="price">$1,150,000</span>
+                                        <a href="#details" class="btn btn-primary">View Property</a>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </section>
 
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Laravel News</h2>
-
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laravel News is a community driven portal and newsletter aggregating all of the latest and most important news in the Laravel ecosystem, including new package releases and tutorials.
-                                </p>
+                <section class="section alt" id="details">
+                    <div class="container">
+                        <div class="section-head">
+                            <div>
+                                <span class="eyebrow">Property Details Page</span>
+                                <h2 class="section-title">Focused property storytelling with a premium contact path.</h2>
                             </div>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                            </svg>
-                        </a>
-
-                        <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64" />
-                                    </svg>
+                            <p class="section-copy">
+                                The details layout uses a soft image stage, bold navy headings, gold pricing, readable body text, and a green contact action for immediate next steps.
+                            </p>
+                        </div>
+                        <div class="detail-layout">
+                            <section class="panel detail-gallery">
+                                <div class="detail-hero-image">
+                                    <img src="https://images.unsplash.com/photo-1605146769289-440113cc3d00?auto=format&fit=crop&w=1200&q=80" alt="Luxury property living room">
                                 </div>
-
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Vibrant Ecosystem</h2>
-
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laravel's robust library of first-party tools and libraries, such as <a href="https://forge.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Forge</a>, <a href="https://vapor.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Vapor</a>, <a href="https://nova.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Nova</a>, and <a href="https://envoyer.io" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Envoyer</a> help you take your projects to the next level. Pair them with powerful open source libraries like <a href="https://laravel.com/docs/billing" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Cashier</a>, <a href="https://laravel.com/docs/dusk" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dusk</a>, <a href="https://laravel.com/docs/broadcasting" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Echo</a>, <a href="https://laravel.com/docs/horizon" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Horizon</a>, <a href="https://laravel.com/docs/sanctum" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Sanctum</a>, <a href="https://laravel.com/docs/telescope" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Telescope</a>, and more.
+                                <div class="thumb-grid">
+                                    <img src="https://images.unsplash.com/photo-1600607687644-c7f34b5a20f1?auto=format&fit=crop&w=700&q=80" alt="Interior detail">
+                                    <img src="https://images.unsplash.com/photo-1600566753151-384129cf4e3e?auto=format&fit=crop&w=700&q=80" alt="Kitchen detail">
+                                    <img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=700&q=80" alt="Pool view">
+                                </div>
+                            </section>
+                            <aside class="card detail-card">
+                                <span class="eyebrow">Signature Listing</span>
+                                <h3>Azure Bay Terrace</h3>
+                                <div class="detail-meta">
+                                    <span>Beachfront</span>
+                                    <span>Private Garage</span>
+                                    <span>Solar Ready</span>
+                                </div>
+                                <p class="price" style="margin:1rem 0 0;">$920,000</p>
+                                <p class="detail-description">
+                                    Azure Bay Terrace balances coastal calm with executive luxury. Large-format glazing, tailored finishes, and open entertaining zones create a sophisticated experience from entry to rooftop.
                                 </p>
+                                <div class="detail-list">
+                                    <div class="detail-item">
+                                        <span>Floor Area</span>
+                                        <strong>460 sqm</strong>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span>Bedrooms</span>
+                                        <strong>4 Premium Suites</strong>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span>Community Access</span>
+                                        <strong>5 min to Marina District</strong>
+                                    </div>
+                                </div>
+                                <div class="inline-actions">
+                                    <a href="#login" class="btn btn-success">Contact Agent</a>
+                                    <a href="#map" class="btn btn-outline">View Location</a>
+                                </div>
+                            </aside>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="map">
+                    <div class="container">
+                        <div class="section-head">
+                            <div>
+                                <span class="eyebrow">Map & Location Page</span>
+                                <h2 class="section-title">Location intelligence framed inside a clean white map card.</h2>
+                            </div>
+                            <p class="section-copy">
+                                The map module keeps the interface airy and readable, with navy labels, gold pins, and soft nearby tags that support context without visual clutter.
+                            </p>
+                        </div>
+                        <div class="map-layout">
+                            <section class="card map-card">
+                                <div class="map-surface">
+                                    <div class="map-grid"></div>
+                                    <div class="road horizontal"></div>
+                                    <div class="road vertical"></div>
+                                    <span class="map-label" style="top:18%; left:12%;">Central Business District</span>
+                                    <span class="map-label" style="top:63%; left:62%;">Riverside Park</span>
+                                    <span class="map-label" style="top:30%; left:58%;">Metro Station</span>
+                                    <span class="map-pin" style="top:34%; left:42%;"></span>
+                                    <span class="map-pin" style="top:56%; left:63%;"></span>
+                                    <span class="map-pin" style="top:25%; left:68%;"></span>
+                                </div>
+                            </section>
+                            <aside class="card nearby-panel">
+                                <span class="eyebrow">Nearby Highlights</span>
+                                <h3>Walkable, connected, and investment-ready.</h3>
+                                <div class="nearby-list" style="margin-top:1.25rem;">
+                                    <div class="nearby-item">
+                                        <div>
+                                            <strong>Financial District</strong>
+                                            <div class="muted">Corporate offices and business lounges</div>
+                                        </div>
+                                        <span>4 min</span>
+                                    </div>
+                                    <div class="nearby-item">
+                                        <div>
+                                            <strong>Harbor Retail Row</strong>
+                                            <div class="muted">Dining, shopping, and lifestyle brands</div>
+                                        </div>
+                                        <span>7 min</span>
+                                    </div>
+                                    <div class="nearby-item">
+                                        <div>
+                                            <strong>St. Helena Academy</strong>
+                                            <div class="muted">Top-rated academic district</div>
+                                        </div>
+                                        <span>10 min</span>
+                                    </div>
+                                </div>
+                            </aside>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section alt" id="admin">
+                    <div class="container">
+                        <div class="section-head">
+                            <div>
+                                <span class="eyebrow">Admin Upload Page</span>
+                                <h2 class="section-title">A simplified media workflow for property image management.</h2>
+                            </div>
+                            <p class="section-copy">
+                                This admin interface stays focused on presentation, using a bright upload surface, navy primary controls, and clear green or red status states for instant clarity.
+                            </p>
+                        </div>
+                        <div class="admin-layout">
+                            <section class="card upload-card" style="background:#F8FAFC;">
+                                <div class="upload-wrap">
+                                    <div class="upload-dropzone">
+                                        <div>
+                                            <strong>Drag property visuals here</strong>
+                                            <p>Showcase a bright, structured upload area with a dashed slate border and direct administrative controls.</p>
+                                            <div class="inline-actions" style="justify-content:center; margin-top:1.2rem;">
+                                                <button class="btn btn-primary" type="button">Upload Images</button>
+                                                <button class="btn btn-outline" type="button">Select Folder</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="upload-status success">
+                                        <span>Success Message</span>
+                                        <strong>12 images prepared for listing preview</strong>
+                                    </div>
+                                    <div class="upload-status error">
+                                        <span>Error Message</span>
+                                        <strong>2 files require higher resolution</strong>
+                                    </div>
+                                </div>
+                            </section>
+                            <aside class="card mini-card">
+                                <span class="eyebrow">Upload Guide</span>
+                                <h3>Professional visual standards for every listing.</h3>
+                                <p>
+                                    Present upload requirements in a calm, administrative layout so agents can curate image sets quickly without backend complexity.
+                                </p>
+                                <div class="detail-list">
+                                    <div class="detail-item">
+                                        <span>Recommended Format</span>
+                                        <strong>JPG / PNG</strong>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span>Target Resolution</span>
+                                        <strong>2400 x 1600</strong>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span>Listing Cover Priority</span>
+                                        <strong>Exterior Hero Shot</strong>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary" type="button">Save Draft</button>
+                            </aside>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="dashboard">
+                    <div class="container">
+                        <div class="section-head">
+                            <div>
+                                <span class="eyebrow">Admin Dashboard</span>
+                                <h2 class="section-title">Operational clarity with a dark navy sidebar and bright content cards.</h2>
+                            </div>
+                            <p class="section-copy">
+                                The dashboard uses a strong dark sidebar, white analytics cards, gold highlights, and a quiet slate active state to keep administrative navigation crisp and professional.
+                            </p>
+                        </div>
+                        <div class="admin-shell">
+                            <div class="dashboard-shell">
+                                <aside class="sidebar">
+                                    <h3>Operations</h3>
+                                    <div class="menu-list">
+                                        <div class="menu-item active">
+                                            <span>Overview</span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <div class="menu-item">
+                                            <span>Listings</span>
+                                            <span>32</span>
+                                        </div>
+                                        <div class="menu-item">
+                                            <span>Uploads</span>
+                                            <span>08</span>
+                                        </div>
+                                        <div class="menu-item">
+                                            <span>Agents</span>
+                                            <span>14</span>
+                                        </div>
+                                        <div class="menu-item">
+                                            <span>Messages</span>
+                                            <span>21</span>
+                                        </div>
+                                    </div>
+                                </aside>
+                                <div class="dashboard-main">
+                                    <div class="dashboard-overview">
+                                        <section class="dashboard-card">
+                                            <span class="eyebrow">Performance</span>
+                                            <div class="dashboard-stat" style="margin-top:1rem;">
+                                                <span>Active Listings</span>
+                                                <strong>148</strong>
+                                            </div>
+                                            <p class="muted">Gold-highlighted insights make key portfolio metrics easy to scan.</p>
+                                        </section>
+                                        <section class="dashboard-card">
+                                            <span class="eyebrow">Inquiries</span>
+                                            <div class="dashboard-stat" style="margin-top:1rem;">
+                                                <span>New Leads</span>
+                                                <strong class="highlight">36</strong>
+                                            </div>
+                                            <p class="muted">Designed for fast review of client activity and conversion momentum.</p>
+                                        </section>
+                                        <section class="dashboard-card">
+                                            <span class="eyebrow">Closings</span>
+                                            <div class="dashboard-stat" style="margin-top:1rem;">
+                                                <span>Monthly Revenue</span>
+                                                <strong>$2.4M</strong>
+                                            </div>
+                                            <p class="muted">Soft shadows and generous spacing keep enterprise data approachable.</p>
+                                        </section>
+                                    </div>
+                                    <section class="dashboard-card">
+                                        <div class="panel-head">
+                                            <div>
+                                                <h3>Recent Listings Pipeline</h3>
+                                                <p class="muted">A clean overview card with readable spacing and strong contrast.</p>
+                                            </div>
+                                            <button class="btn btn-accent" type="button">Export</button>
+                                        </div>
+                                        <table class="dashboard-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Property</th>
+                                                    <th>Agent</th>
+                                                    <th>Status</th>
+                                                    <th>Value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Azure Bay Terrace</td>
+                                                    <td>Isabel Cruz</td>
+                                                    <td><span class="highlight">Featured</span></td>
+                                                    <td>$920,000</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Skyline Ridge Residence</td>
+                                                    <td>Daniel Reyes</td>
+                                                    <td>Scheduled</td>
+                                                    <td>$780,000</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Harbor Crest Penthouse</td>
+                                                    <td>Monica Tan</td>
+                                                    <td>Review</td>
+                                                    <td>$1,150,000</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </section>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
 
-                <div class="flex justify-center mt-16 px-0 sm:items-center sm:justify-between">
-                    <div class="text-center text-sm text-gray-500 dark:text-gray-400 sm:text-left">
-                        <div class="flex items-center gap-4">
-                            <a href="https://github.com/sponsors/taylorotwell" class="group inline-flex items-center hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="-mt-px mr-1 w-5 h-5 stroke-gray-400 dark:stroke-gray-600 group-hover:stroke-gray-600 dark:group-hover:stroke-gray-400">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                                </svg>
-                                Sponsor
-                            </a>
+                <section class="login-section" id="login">
+                    <div class="container login-shell">
+                        <div class="login-copy">
+                            <span class="eyebrow" style="background:rgba(255,255,255,0.16); color:#FFFFFF;">Admin Login Page</span>
+                            <h2 class="section-title" style="margin-top:1rem;">Secure access with a premium corporate gradient.</h2>
+                            <p class="section-copy" style="color:rgba(255,255,255,0.8); margin-top:1rem;">
+                                The sign-in experience is centered, polished, and intentionally simple: crisp inputs, rounded white card, and a gold login button that stands out clearly against the navy gradient.
+                            </p>
                         </div>
+                        <section class="login-card">
+                            <h3 style="margin:0; color:var(--navy);">Welcome Back</h3>
+                            <p class="muted" style="margin-top:0.5rem;">Access listings, dashboards, uploads, and management tools.</p>
+                            <form class="login-form">
+                                <input type="email" value="agent@devestate.com" readonly>
+                                <input type="password" value="password" readonly>
+                                <div class="meta-row">
+                                    <span>Remember this device</span>
+                                    <span>Forgot password?</span>
+                                </div>
+                                <button class="btn btn-accent" type="button">Login</button>
+                            </form>
+                        </section>
                     </div>
+                </section>
 
-                    <div class="ml-4 text-center text-sm text-gray-500 dark:text-gray-400 sm:text-right sm:ml-0">
-                        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
+                <section class="section" id="mobile">
+                    <div class="container mobile-layout">
+                        <div>
+                            <span class="eyebrow">Mobile Responsive Design</span>
+                            <h2 class="section-title" style="margin-top:1rem;">A compact mobile experience with a navy bottom navigation.</h2>
+                            <p class="section-copy" style="margin-top:1rem;">
+                                The responsive pattern preserves the same premium palette across cards, actions, and navigation, while gold active states keep orientation obvious on smaller screens.
+                            </p>
+                        </div>
+                        <aside class="phone-shell">
+                            <div class="phone-top">
+                                <strong style="color:var(--navy);">DevEstate Mobile</strong>
+                                <span class="tag" style="margin:0;">Responsive Preview</span>
+                            </div>
+                            <div class="phone-screen">
+                                <div class="phone-card">
+                                    <img src="https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?auto=format&fit=crop&w=900&q=80" alt="Mobile property card">
+                                    <div class="mobile-menu">
+                                        <span class="tag">For Sale</span>
+                                        <span class="tag">Smart Home</span>
+                                    </div>
+                                    <h4 style="margin:0.9rem 0 0.35rem; color:var(--navy);">City Crest Loft</h4>
+                                    <p class="muted" style="margin:0 0 0.8rem;">Refined city living with concierge access and private lounge amenities.</p>
+                                    <div class="price-row" style="margin-top:0;">
+                                        <span class="price">$540,000</span>
+                                        <button class="btn btn-primary" type="button">View</button>
+                                    </div>
+                                </div>
+                                <div class="phone-bottom-nav">
+                                    <div class="nav-icon active">
+                                        <strong>H</strong>
+                                        <span>Home</span>
+                                    </div>
+                                    <div class="nav-icon">
+                                        <strong>S</strong>
+                                        <span>Search</span>
+                                    </div>
+                                    <div class="nav-icon">
+                                        <strong>M</strong>
+                                        <span>Map</span>
+                                    </div>
+                                    <div class="nav-icon">
+                                        <strong>P</strong>
+                                        <span>Profile</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </aside>
                     </div>
-                </div>
-            </div>
+                </section>
+            </main>
+            <footer class="footer">
+                DevEstate interface concept focused on layout, styling, and visual components only.
+            </footer>
         </div>
     </body>
 </html>
