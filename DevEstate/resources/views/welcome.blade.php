@@ -329,12 +329,11 @@
                         <a href="#details">Details</a>
                         <a href="#map">Locations</a>
                         <a href="#admin">Admin</a>
-                        <a href="#login">Login</a>
                     </nav>
-                    <div class="nav-actions">
-                        <a href="#dashboard" class="btn btn-outline" style="color:#FFFFFF; border-color:rgba(255,255,255,0.36);">Dashboard</a>
-                        <a href="#listings" class="btn btn-accent">View Listings</a>
-                    </div>
+                    <form method="POST" action="/logout" class="nav-actions">
+                        @csrf
+                        <button type="submit" class="btn btn-danger">Logout</button>
+                    </form>
                 </div>
             </header>
 
