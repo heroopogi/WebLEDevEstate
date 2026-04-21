@@ -291,17 +291,42 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                gap: 0.75rem;
             }
             .price {
                 color: var(--gold);
-                font-size: 1.4rem;
+                font-size: 1.2rem;
                 font-weight: 800;
+            }
+            .empty-state {
+                padding: 2rem;
+                border-radius: 20px;
+                border: 1px dashed rgba(217, 226, 236, 0.9);
+                background: #F8FAFC;
+                color: var(--text-muted);
+            }
+            .empty-state h3 {
+                margin: 0 0 0.75rem;
+                color: var(--navy);
             }
 
             /* Detail page styles */
             .detail-card {
                 max-width: 800px;
                 margin: 0 auto;
+            }
+            .detail-hero-media {
+                margin-bottom: 1.5rem;
+                border-radius: 24px;
+                overflow: hidden;
+                border: 1px solid rgba(217, 226, 236, 0.7);
+                box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+            }
+            .detail-hero-media img {
+                display: block;
+                width: 100%;
+                height: min(440px, 60vw);
+                object-fit: cover;
             }
             .detail-card .eyebrow {
                 display: inline-block;
@@ -753,6 +778,7 @@
                 .nav-links { width: 100%; justify-content: flex-start; }
                 .hero-title { font-size: clamp(2.4rem, 8vw, 3.4rem); }
                 .cta-panel { padding: 1.7rem; }
+                .price-row { flex-direction: column; align-items: flex-start; }
             }
         </style>
     </head>

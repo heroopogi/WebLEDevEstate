@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +19,10 @@ Route::get('/', function () {
     if (session('logged_in')) {
         return redirect()->route('properties');
     }
-    return view('guest-dashboard');
+
+    return view('guest-dashboard', [
+        'properties' => Property::latest()->take(3)->get(),
+    ]);
 })->name('home');
 
 Route::get('/login', function () {
@@ -54,15 +58,30 @@ Route::get('/properties', function () {
         return redirect()->route('home');
     }
 
-    return view('dashboard');
+    $properties = Property::latest()->get();
+
+    return view('dashboard', [
+        'properties' => $properties->take(3),
+        'propertyCount' => $properties->count(),
+        'portfolioValue' => $properties->sum('price'),
+    ]);
 })->name('properties');
 
 Route::get('/listings', function () {
-    return view('listings');
+    return view('listings', [
+        'properties' => Property::latest()->get(),
+    ]);
 })->name('listings');
 
-Route::get('/details', function () {
-    return view('details');
+Route::get('/details/{slug?}', function (?string $slug = null) {
+    $property = $slug
+        ? Property::where('slug', $slug)->firstOrFail()
+        : Property::latest()->firstOrFail();
+
+    return view('details', [
+        'property' => $property,
+        'relatedProperties' => Property::where('id', '!=', $property->id)->latest()->take(3)->get(),
+    ]);
 })->name('details');
 
 Route::get('/map', function () {
