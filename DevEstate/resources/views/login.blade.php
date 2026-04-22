@@ -17,6 +17,11 @@
         <div class="search-panel search-panel-login">
             <h2 class="login-title">Agent Sign In</h2>
             <p class="login-subtitle">Enter your agent credentials to open the admin dashboard.</p>
+            @if (session('status'))
+                <div class="alert" style="margin-bottom: 1rem; background: #DCFCE7; border-color: #BBF7D0; color: #166534;">
+                    {{ session('status') }}
+                </div>
+            @endif
             @if ($errors->any())
                 <div class="alert">{{ $errors->first() }}</div>
             @endif
@@ -31,7 +36,10 @@
                     <input id="password" name="password" type="password" required autocomplete="current-password" class="form-input" />
                 </div>
                 <button type="submit" class="btn btn-primary btn-login">Sign In</button>
-                <p class="form-note">Demo agent account: <strong>Admin</strong> / <strong>123</strong></p>
+                <p class="form-note">
+                    No account yet?
+                    <a href="{{ route('register.admin') }}" style="font-weight: 700; color: var(--navy);">Create admin account</a>
+                </p>
             </form>
         </div>
     </div>

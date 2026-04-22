@@ -45,6 +45,7 @@
                 font-size: 0.94rem;
                 font-weight: 700;
                 line-height: 1;
+                white-space: nowrap;
                 cursor: pointer;
                 transition: transform 0.18s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
             }
@@ -62,10 +63,10 @@
                 position: sticky;
                 top: 0;
                 z-index: 20;
-                background: rgba(20, 40, 73, 0.9);
-                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                background: rgba(246, 250, 255, 0.96);
+                border-bottom: 1px solid rgba(16, 42, 68, 0.12);
                 backdrop-filter: blur(16px);
-                color: var(--white);
+                color: var(--text-dark);
             }
             .nav-bar {
                 display: flex;
@@ -79,18 +80,19 @@
                 align-items: center;
                 gap: 0.9rem;
                 font-weight: 800;
-                color: var(--white);
+                color: var(--text-dark);
             }
             .brand-mark {
-                width: 48px;
-                height: 48px;
-                display: grid;
-                place-items: center;
-                border-radius: 16px;
-                background: linear-gradient(135deg, #F4C246, #D4A017);
-                color: #102A44;
-                font-weight: 800;
-                box-shadow: 0 16px 36px rgba(212, 160, 23, 0.18);
+                width: 62px;
+                height: 62px;
+                display: block;
+            }
+            .brand-logo {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                display: block;
+                filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.18));
             }
             .brand-text {
                 display: grid;
@@ -98,7 +100,7 @@
                 line-height: 1.1;
             }
             .brand-title { font-size: 1rem; letter-spacing: 0.08em; }
-            .brand-subtitle { font-size: 0.82rem; color: rgba(255, 255, 255, 0.78); }
+            .brand-subtitle { font-size: 0.82rem; color: var(--text-muted); }
 
             .nav-links {
                 display: flex;
@@ -107,17 +109,19 @@
                 flex-wrap: wrap;
             }
             .nav-links a {
-                color: rgba(255, 255, 255, 0.8);
+                color: rgba(16, 42, 68, 0.78);
                 font-size: 0.95rem;
                 font-weight: 600;
                 transition: color 0.2s ease;
             }
             .nav-links a:hover,
-            .nav-links a.active { color: #FFFFFF; }
+            .nav-links a.active { color: var(--navy); }
             .nav-actions {
                 display: flex;
                 gap: 0.9rem;
                 align-items: center;
+                flex-wrap: wrap;
+                justify-content: flex-end;
             }
             .nav-actions .btn {
                 min-height: 46px;
@@ -135,6 +139,14 @@
                 color: #FFFFFF;
                 border: 1px solid rgba(255, 255, 255, 0.18);
                 background: transparent;
+            }
+            .site-header .btn-secondary {
+                color: var(--navy);
+                border-color: rgba(16, 42, 68, 0.25);
+                background: rgba(255, 255, 255, 0.78);
+            }
+            .site-header .btn-secondary:hover {
+                background: rgba(239, 245, 252, 0.95);
             }
             .btn-danger {
                 background: #E53E3E;
@@ -303,6 +315,19 @@
                 max-width: 800px;
                 margin: 0 auto;
             }
+            .detail-visual {
+                margin-bottom: 1.5rem;
+                border-radius: 24px;
+                overflow: hidden;
+                height: 360px;
+                box-shadow: 0 18px 32px rgba(15, 23, 42, 0.1);
+            }
+            .detail-visual img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
             .detail-card .eyebrow {
                 display: inline-block;
                 padding: 0.5rem 1rem;
@@ -372,81 +397,6 @@
                 gap: 1rem;
                 flex-wrap: wrap;
             }
-
-            /* Map page styles */
-            .map-card {
-                max-width: 900px;
-                margin: 0 auto;
-            }
-            .map-surface {
-                position: relative;
-                height: 400px;
-                border-radius: 24px;
-                background: linear-gradient(135deg, #E8F4FD, #D1E9F7);
-                border: 2px solid rgba(217, 226, 236, 0.5);
-                overflow: hidden;
-            }
-            .map-grid {
-                position: absolute;
-                inset: 0;
-                background-image:
-                    linear-gradient(rgba(15, 23, 42, 0.1) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(15, 23, 42, 0.1) 1px, transparent 1px);
-                background-size: 40px 40px;
-            }
-            .road {
-                position: absolute;
-                background: rgba(15, 23, 42, 0.2);
-            }
-            .road.horizontal {
-                height: 8px;
-                left: 0;
-                right: 0;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-            .road.vertical {
-                width: 8px;
-                top: 0;
-                bottom: 0;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-            .map-label {
-                position: absolute;
-                padding: 0.5rem 1rem;
-                border-radius: 8px;
-                background: rgba(255, 255, 255, 0.9);
-                color: var(--navy);
-                font-size: 0.85rem;
-                font-weight: 600;
-                box-shadow: 0 4px 8px rgba(15, 23, 42, 0.1);
-            }
-            .map-pin {
-                position: absolute;
-                width: 22px;
-                height: 22px;
-                border-radius: 50% 50% 50% 0;
-                background: var(--gold);
-                transform: rotate(-45deg);
-                box-shadow: 0 4px 8px rgba(212, 160, 23, 0.3);
-            }
-            .map-pin::after {
-                content: '';
-                position: absolute;
-                top: 3px;
-                left: 3px;
-                width: 16px;
-                height: 16px;
-                border-radius: 50%;
-                background: white;
-            }
-            .map-label-cbd { top: 18%; left: 12%; }
-            .map-label-park { top: 63%; left: 62%; }
-            .map-label-station { top: 30%; left: 58%; }
-            .map-pin-1 { top: 34%; left: 42%; }
-            .map-pin-2 { top: 56%; left: 63%; }
-            .map-pin-3 { top: 25%; left: 68%; }
 
             /* Alert styles */
             .alert {
@@ -695,6 +645,104 @@
                 color: var(--text-muted);
                 font-size: 0.92rem;
             }
+            .dashboard-hero-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                align-items: stretch;
+            }
+            .dashboard-hero-grid .hero-content {
+                display: flex;
+                justify-content: center;
+            }
+            .dashboard-topbar {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+                gap: 1rem;
+                margin-bottom: 1rem;
+            }
+            .dashboard-eyebrow {
+                margin: 0;
+                color: var(--navy-soft);
+                text-transform: uppercase;
+                letter-spacing: 0.14em;
+                font-size: 0.75rem;
+                font-weight: 700;
+            }
+            .dashboard-heading {
+                margin: 0.55rem 0 0.5rem;
+                color: var(--navy);
+                font-size: clamp(1.7rem, 2.5vw, 2.1rem);
+                line-height: 1.2;
+            }
+            .dashboard-subheading {
+                margin: 0;
+                color: var(--text-muted);
+                line-height: 1.65;
+                max-width: 58ch;
+            }
+            .dashboard-top-actions {
+                display: flex;
+                gap: 0.75rem;
+                flex-wrap: wrap;
+            }
+            .dashboard-metrics {
+                display: grid;
+                grid-template-columns: repeat(4, 240px);
+                gap: 1.1rem;
+                margin-top: 0;
+                grid-auto-rows: 1fr;
+                width: fit-content;
+                max-width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+                justify-content: center;
+            }
+            .dashboard-metrics .metric-card {
+                min-height: 168px;
+                background: rgba(255, 255, 255, 0.96);
+                display: flex;
+                flex-direction: column;
+                padding: 1.5rem 1.35rem;
+            }
+            .dashboard-metrics .metric-card small {
+                letter-spacing: 0.08em;
+                line-height: 1.4;
+            }
+            .dashboard-metrics .metric-card strong {
+                font-size: 1.95rem;
+                line-height: 1.15;
+                white-space: nowrap;
+            }
+            .dashboard-metrics .metric-card p {
+                margin-top: 0.65rem;
+                line-height: 1.5;
+                max-width: 28ch;
+            }
+            .quick-link-card {
+                display: block;
+            }
+            .quick-link-card .quick-card {
+                height: 100%;
+            }
+            .quick-card-copy {
+                margin-bottom: 1.1rem;
+            }
+            .quick-card-action {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.45rem;
+                color: var(--navy-soft);
+                font-size: 0.9rem;
+                font-weight: 700;
+            }
+            .property-summary {
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
             .cta-panel {
                 background: linear-gradient(135deg, var(--navy) 0%, var(--navy-soft) 100%);
                 border-radius: 32px;
@@ -738,13 +786,118 @@
             .form-group { margin-bottom: 1rem; }
             .form-label { display: block; color: var(--navy); font-weight: 700; margin-bottom: 0.6rem; font-size: 0.95rem; }
             .form-input { width: 100%; min-height: 48px; padding: 0.95rem 1rem; border-radius: 12px; border: 1px solid rgba(217, 226, 236, 0.8); background: #FFFFFF; color: var(--text-dark); font-size: 0.95rem; }
+            textarea.form-input { min-height: 140px; resize: vertical; }
+            .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+            .form-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 0.5rem; }
             .btn-login { width: 100%; min-height: 52px; font-size: 1rem; margin-bottom: 1rem; }
             .form-note { margin: 0; color: var(--text-muted); font-size: 0.9rem; text-align: center; }
+            .reservation-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(15, 23, 42, 0.48);
+                display: none;
+                align-items: center;
+                justify-content: center;
+                z-index: 80;
+                padding: 1rem;
+            }
+            .reservation-overlay.is-open {
+                display: flex;
+            }
+            .reservation-panel {
+                width: min(520px, 100%);
+                background: #FFFFFF;
+                border-radius: 20px;
+                border: 1px solid rgba(217, 226, 236, 0.9);
+                box-shadow: 0 26px 60px rgba(15, 23, 42, 0.22);
+                padding: 1.4rem;
+            }
+            .reservation-panel-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 0.75rem;
+                margin-bottom: 0.65rem;
+            }
+            .reservation-panel-header h2 {
+                margin: 0;
+                font-size: 1.25rem;
+                color: var(--navy);
+            }
+            .reservation-close {
+                width: 34px;
+                height: 34px;
+                border-radius: 999px;
+                border: 1px solid var(--border);
+                background: #FFFFFF;
+                color: var(--navy);
+                font-size: 1.25rem;
+                line-height: 1;
+                cursor: pointer;
+            }
+            .reservation-panel-copy {
+                margin: 0 0 1rem;
+                color: var(--text-muted);
+                line-height: 1.6;
+            }
+            .reservation-form {
+                display: grid;
+                gap: 0.5rem;
+            }
+            .reservation-form .form-actions {
+                margin-top: 0.85rem;
+            }
+            .reservation-cancel {
+                color: var(--navy);
+                border-color: rgba(16, 42, 68, 0.24);
+                background: #FFFFFF;
+            }
+            .reservation-error {
+                margin: 0.1rem 0 0.5rem;
+                color: #B91C1C;
+                font-size: 0.85rem;
+                font-weight: 600;
+            }
+            .reservation-status-pill {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 40px;
+                padding: 0.5rem 0.9rem;
+                border-radius: 999px;
+                font-size: 0.82rem;
+                font-weight: 800;
+                letter-spacing: 0.06em;
+                margin-bottom: 0.9rem;
+                width: fit-content;
+            }
+            .reservation-status-new {
+                background: #F3E8BE;
+                color: #8B6B1B;
+            }
+            .reservation-status-accepted {
+                background: #DCFCE7;
+                color: #166534;
+            }
 
             @media (max-width: 980px) {
                 .hero-card { grid-template-columns: 1fr; }
                 .hero-stats { grid-template-columns: 1fr; }
                 .section-grid { grid-template-columns: 1fr; }
+                .form-grid { grid-template-columns: 1fr; }
+                .dashboard-hero-grid,
+                .dashboard-metrics {
+                    grid-template-columns: repeat(2, minmax(240px, 1fr));
+                    width: 100%;
+                }
+                .dashboard-topbar {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    margin-bottom: 0.75rem;
+                }
+                .nav-actions {
+                    justify-content: flex-start;
+                }
             }
             @media (max-width: 780px) {
                 .page-shell { padding: 1.5rem 0 2.5rem; }
@@ -753,6 +906,9 @@
                 .nav-links { width: 100%; justify-content: flex-start; }
                 .hero-title { font-size: clamp(2.4rem, 8vw, 3.4rem); }
                 .cta-panel { padding: 1.7rem; }
+                .detail-visual { height: 240px; }
+                .dashboard-metrics { grid-template-columns: 1fr; }
+                .hero-card-large { padding: 2rem 1.25rem; }
             }
         </style>
     </head>
@@ -761,22 +917,32 @@
             <header class="site-header">
                 <div class="container nav-bar">
                     <a href="{{ session('logged_in') ? route('properties') : route('home') }}" class="brand">
-                        <span class="brand-mark">DE</span>
+                        <span class="brand-mark">
+                            <img src="{{ asset('images/CompanyLOGO.png') }}" alt="JE Enterprises Logo" class="brand-logo">
+                        </span>
                         <span class="brand-text">
                             <span class="brand-title">DevEstate</span>
                             <span class="brand-subtitle">Luxury Property Platform</span>
                         </span>
                     </a>
                     @if(session('logged_in'))
-                        <nav class="nav-links">
-                            <a href="{{ route('properties') }}" class="{{ request()->routeIs('properties') ? 'active' : '' }}">Agent Dashboard</a>
-                            <a href="{{ route('listings') }}" class="{{ request()->routeIs('listings') ? 'active' : '' }}">Manage Listings</a>
-                            <a href="{{ route('details') }}" class="{{ request()->routeIs('details') ? 'active' : '' }}">Listing Details</a>
-                            <a href="{{ route('map') }}" class="{{ request()->routeIs('map') ? 'active' : '' }}">Property Map</a>
-                        </nav>
                         <div class="nav-actions">
-                            <a href="{{ route('properties') }}" class="btn btn-secondary">Dashboard</a>
-                            <a href="{{ route('listings') }}" class="btn btn-primary">Add Listing</a>
+                            @if(!request()->routeIs('properties'))
+                                <a href="{{ route('properties') }}" class="btn btn-secondary">Dashboard</a>
+                            @endif
+
+                            @if(!request()->routeIs('reservations'))
+                                <a href="{{ route('reservations') }}" class="btn btn-secondary">Reservations</a>
+                            @endif
+
+                            @if(!request()->routeIs('listings', 'listings.edit', 'listings.update', 'listings.destroy'))
+                                <a href="{{ route('listings') }}" class="btn btn-secondary">Edit Listing Details</a>
+                            @endif
+
+                            @if(!request()->routeIs('listings.create', 'listings.store'))
+                                <a href="{{ route('listings.create') }}" class="btn btn-primary">Add Listing</a>
+                            @endif
+
                             <form method="POST" action="{{ route('logout') }}" class="logout-form">
                                 @csrf
                                 <button type="submit" class="btn btn-danger">Logout</button>
@@ -786,7 +952,6 @@
                         <nav class="nav-links">
                             <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a>
                             <a href="{{ route('listings') }}" class="{{ request()->routeIs('listings') ? 'active' : '' }}">Browse Houses</a>
-                            <a href="{{ route('map') }}" class="{{ request()->routeIs('map') ? 'active' : '' }}">Locations</a>
                         </nav>
                         <div class="nav-actions">
                             <a href="{{ route('login') }}" class="btn btn-primary">Agent Login</a>

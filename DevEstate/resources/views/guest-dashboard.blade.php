@@ -9,20 +9,16 @@
             <span class="hero-eyebrow">Client House Search</span>
             <h1 class="hero-title hero-title-large">Find Houses That Fit Your Lifestyle</h1>
             <p class="hero-copy">Browse available homes, compare details, and explore property locations. You can start searching as a guest, then connect with an agent when you are ready.</p>
-            <div class="hero-links">
-                <a href="{{ route('listings') }}" class="btn btn-primary">Browse Houses</a>
-                <a href="{{ route('login') }}" class="btn btn-secondary">Agent Login</a>
-            </div>
         </div>
     </div>
 
     <div class="page-card">
         <h2 class="section-title">Featured Houses for Clients</h2>
-        <p class="section-description">Explore homes in prime locations. Open each listing to view more details and location information.</p>
+        <p class="section-description">Explore homes in prime locations. Open each listing to view more details before contacting an agent.</p>
         <div class="property-grid">
             <article class="property-card">
                 <div class="property-media">
-                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=900&q=80" alt="Skyline Ridge">
+                    <img src="{{ asset('images/house1.jpg') }}" alt="Skyline Ridge">
                     <span class="property-chip">Featured</span>
                 </div>
                 <div class="property-body">
@@ -34,13 +30,13 @@
                     <p>Modern finishes and expansive glass bring light into every room.</p>
                     <div class="price-row">
                         <span class="price">$780K</span>
-                        <a href="{{ route('details') }}" class="btn btn-primary">View Details</a>
+                        <a href="{{ route('details', ['slug' => 'skyline-ridge-home']) }}" class="btn btn-primary">View Details</a>
                     </div>
                 </div>
             </article>
             <article class="property-card">
                 <div class="property-media">
-                    <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80" alt="Parklane Condo">
+                    <img src="{{ asset('images/house2.jpg') }}" alt="Parklane Condo">
                     <span class="property-chip">New</span>
                 </div>
                 <div class="property-body">
@@ -52,13 +48,13 @@
                     <p>Urban living with polished amenities and a bright open plan.</p>
                     <div class="price-row">
                         <span class="price">$620K</span>
-                        <a href="{{ route('details') }}" class="btn btn-primary">View Details</a>
+                        <a href="{{ route('details', ['slug' => 'parklane-condo']) }}" class="btn btn-primary">View Details</a>
                     </div>
                 </div>
             </article>
             <article class="property-card">
                 <div class="property-media">
-                    <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=900&q=80" alt="Harbor Crest Penthouse">
+                    <img src="{{ asset('images/house3.jpg') }}" alt="Harbor Crest Penthouse">
                     <span class="property-chip">Top Rated</span>
                 </div>
                 <div class="property-body">
@@ -70,7 +66,7 @@
                     <p>Elevated city residence with panoramic vistas and private terrace.</p>
                     <div class="price-row">
                         <span class="price">$1.15M</span>
-                        <a href="{{ route('details') }}" class="btn btn-primary">View Details</a>
+                        <a href="{{ route('details', ['slug' => 'harbor-crest-penthouse']) }}" class="btn btn-primary">View Details</a>
                     </div>
                 </div>
             </article>
@@ -103,13 +99,5 @@
         </div>
     </div>
 
-    <div class="cta-panel">
-        <h2>Ready to Start Your House Search?</h2>
-        <p>Browse listings now, review property details, and explore house locations near your preferred area.</p>
-        <div class="cta-actions">
-            <a href="{{ route('listings') }}" class="btn btn-primary">Browse Houses</a>
-            <a href="{{ route('map') }}" class="btn btn-secondary">View Locations</a>
-        </div>
-    </div>
 </section>
 @endsection
