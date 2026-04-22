@@ -20,7 +20,7 @@
     <span class="eyebrow">{{ $property->badge }}</span>
     <h3>{{ $property->name }}</h3>
     <div class="detail-meta">
-        @foreach ($property->tags as $tag)
+        @foreach (($property->tags ?? []) as $tag)
             <span>{{ $tag }}</span>
         @endforeach
     </div>
@@ -36,7 +36,7 @@
             <span>Price</span>
             <strong>{{ $property->price }}</strong>
         </div>
-        @foreach ($property->details as $detail)
+        @foreach (($property->details ?? []) as $detail)
             <div class="detail-item">
                 <span>{{ $detail['label'] }}</span>
                 <strong>{{ $detail['value'] }}</strong>

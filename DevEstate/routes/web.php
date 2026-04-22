@@ -48,7 +48,7 @@ Route::post('/login', function (Request $request) {
         'password' => 'required|string',
     ]);
 
-    $user = User::where('name', $request->input('username'))->first();
+    $user = User::whereRaw('BINARY name = ?', [$request->input('username')])->first();
 
     if ($user && Hash::check($request->input('password'), $user->password)) {
         $request->session()->put('logged_in', true);
@@ -145,10 +145,83 @@ Route::get('/properties', function () use ($loadReservations) {
     $recentProperties = $properties->take(3);
     $ownedSlugs = $properties->pluck('slug')->all();
     $reservations = $loadReservations();
+    $ownedReservations = $reservations
+        ->whereIn('property_slug', $ownedSlugs)
+        ->values();
     $unreadReservations = $reservations
         ->where('is_read', false)
         ->whereIn('property_slug', $ownedSlugs)
         ->count();
+    $recentActivity = $properties
+        ->sortByDesc(fn ($property) => optional($property->updated_at)->timestamp ?? 0)
+        ->take(4)
+        ->values()
+        ->map(function ($property) {
+            $createdAt = $property->created_at;
+            $updatedAt = $property->updated_at ?? $createdAt;
+            $wasUpdated = $createdAt && $updatedAt && $updatedAt->diffInMinutes($createdAt) > 1;
+
+            return [
+                'title' => $wasUpdated ? 'Updated listing details' : 'Added a new property',
+                'description' => ($wasUpdated ? 'Saved fresh changes to ' : 'Published ') . $property->name,
+                'timestamp' => $updatedAt,
+                'url' => route('details', ['slug' => $property->slug]),
+                'icon' => $wasUpdated ? 'bi-pencil-square' : 'bi-house-add',
+            ];
+        });
+    $listingTrend = collect(range(5, 0))
+        ->map(function ($monthsAgo) use ($properties) {
+            $month = now()->copy()->startOfMonth()->subMonths($monthsAgo);
+            $count = $properties->filter(function ($property) use ($month) {
+                return optional($property->created_at)?->format('Y-m') === $month->format('Y-m');
+            })->count();
+
+            return [
+                'label' => $month->format('M'),
+                'full_label' => $month->format('F Y'),
+                'count' => $count,
+            ];
+        });
+    $latestOwnedReservations = $ownedReservations->take(3)->map(function ($reservation) {
+        return [
+            'client_name' => $reservation['client_name'] ?? 'Unknown client',
+            'property_name' => $reservation['property_name'] ?? 'Unknown property',
+            'status' => $reservation['status'] ?? 'new',
+            'submitted_at' => !empty($reservation['submitted_at']) ? \Carbon\Carbon::parse($reservation['submitted_at']) : null,
+        ];
+    });
+    $topPerformingListing = $properties
+        ->sortByDesc(function ($property) use ($ownedReservations) {
+            return $ownedReservations->where('property_slug', $property->slug)->count();
+        })
+        ->first();
+    $topListingReservations = $topPerformingListing
+        ? $ownedReservations->where('property_slug', $topPerformingListing->slug)->count()
+        : 0;
+    $acceptedReservations = $ownedReservations->where('status', 'accepted')->count();
+    $newReservations = $ownedReservations->where('status', 'new')->count();
+    $conversionRate = $ownedReservations->count() > 0
+        ? round(($acceptedReservations / $ownedReservations->count()) * 100)
+        : 0;
+    $taskItems = collect([
+        [
+            'title' => 'Add your next property',
+            'detail' => $activeListings > 0 ? 'Keep your portfolio fresh with a new listing.' : 'Start populating the platform with your first listing.',
+            'done' => $activeListings > 0,
+        ],
+        [
+            'title' => 'Review reservation requests',
+            'detail' => $unreadReservations > 0 ? $unreadReservations . ' unread reservation' . ($unreadReservations > 1 ? 's' : '') . ' need attention.' : 'No unread reservations right now.',
+            'done' => $unreadReservations === 0,
+        ],
+        [
+            'title' => 'Complete listing media',
+            'detail' => $properties->contains(fn ($property) => str_contains((string) $property->image, 'listings/'))
+                ? 'Custom uploaded listing photos are already in use.'
+                : 'Upload custom listing photos to strengthen presentation.',
+            'done' => $properties->contains(fn ($property) => str_contains((string) $property->image, 'listings/')),
+        ],
+    ]);
 
     return view('dashboard', [
         'activeListings' => $activeListings,
@@ -156,6 +229,15 @@ Route::get('/properties', function () use ($loadReservations) {
         'averageListingPrice' => $averageListingPrice,
         'totalPortfolioValue' => $totalPortfolioValue,
         'recentProperties' => $recentProperties,
+        'recentActivity' => $recentActivity,
+        'listingTrend' => $listingTrend,
+        'latestOwnedReservations' => $latestOwnedReservations,
+        'topPerformingListing' => $topPerformingListing,
+        'topListingReservations' => $topListingReservations,
+        'acceptedReservations' => $acceptedReservations,
+        'newReservations' => $newReservations,
+        'conversionRate' => $conversionRate,
+        'taskItems' => $taskItems,
         'unreadReservations' => $unreadReservations,
     ]);
 })->name('properties');

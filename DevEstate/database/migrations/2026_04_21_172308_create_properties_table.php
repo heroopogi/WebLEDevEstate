@@ -11,6 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasTable('properties')) {
+            return;
+        }
+
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
             $table->string('slug')->unique();
@@ -31,6 +35,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('properties');
+        // This migration is now a compatibility no-op for databases where the
+        // original properties table was already created by an earlier migration.
+        // Dropping the table here would incorrectly remove the canonical table
+        // during rollback of later batches.
+        return;
     }
 };

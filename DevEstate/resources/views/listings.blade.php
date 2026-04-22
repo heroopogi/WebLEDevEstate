@@ -24,7 +24,7 @@
             </div>
             <div class="property-body">
                 <div class="property-meta">
-                    @foreach($property->tags as $tag)
+                    @foreach(($property->tags ?? []) as $tag)
                         <span>{{ $tag }}</span>
                     @endforeach
                 </div>

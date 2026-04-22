@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>@yield('title', 'DevEstate')</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <style>
             :root {
                 --navy: #102A44;
@@ -54,10 +55,15 @@
                 outline: 2px solid rgba(212, 160, 23, 0.45);
                 outline-offset: 2px;
             }
+            .btn i {
+                font-size: 1rem;
+                line-height: 1;
+            }
 
             .container {
-                width: min(1180px, calc(100% - 2rem));
+                width: min(1600px, calc(100% - 2rem));
                 margin: 0 auto;
+                padding-inline: clamp(0.4rem, 1.4vw, 1.25rem);
             }
             .site-header {
                 position: sticky;
@@ -118,15 +124,15 @@
             .nav-links a.active { color: var(--navy); }
             .nav-actions {
                 display: flex;
-                gap: 0.9rem;
+                gap: 0.6rem;
                 align-items: center;
                 flex-wrap: wrap;
                 justify-content: flex-end;
             }
             .nav-actions .btn {
-                min-height: 46px;
-                padding: 0 1.3rem;
-                font-size: 0.95rem;
+                min-height: 42px;
+                padding: 0 1rem;
+                font-size: 0.92rem;
             }
             .btn-primary {
                 background: var(--gold);
@@ -156,7 +162,7 @@
             }
             .btn-danger:hover { background: #C53030; }
 
-            .page-shell { padding: 2.5rem 0 3.5rem; }
+            .page-shell { padding: 1.5rem 0 2.75rem; }
             .section-title {
                 margin: 0 0 1.5rem;
                 font-size: 1.5rem;
@@ -687,6 +693,458 @@
                 gap: 0.75rem;
                 flex-wrap: wrap;
             }
+            .dashboard-shell {
+                display: grid;
+                gap: 1rem;
+            }
+            .dashboard-shell-wide {
+                width: 100%;
+            }
+            .dashboard-banner {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1.5rem;
+                padding: 1.35rem 1.5rem;
+                border-radius: 28px;
+                background: linear-gradient(135deg, rgba(16, 42, 68, 0.99) 0%, rgba(31, 74, 122, 0.95) 68%, rgba(212, 160, 23, 0.18) 100%);
+                color: #FFFFFF;
+                box-shadow: var(--shadow-card);
+            }
+            .dashboard-banner-copy {
+                max-width: 820px;
+            }
+            .dashboard-banner .dashboard-eyebrow {
+                color: rgba(242, 214, 137, 0.92);
+            }
+            .dashboard-banner .dashboard-heading {
+                color: #FFFFFF;
+                margin: 0.3rem 0 0.4rem;
+                font-size: clamp(1.9rem, 2.5vw, 2.5rem);
+            }
+            .dashboard-banner .dashboard-subheading {
+                color: rgba(248, 250, 252, 0.84);
+                max-width: 68ch;
+            }
+            .dashboard-banner-actions {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 0.7rem;
+            }
+            .dashboard-banner-actions .btn {
+                min-width: 228px;
+            }
+            .dashboard-banner-meta {
+                display: flex;
+                gap: 0.6rem;
+                flex-wrap: wrap;
+                margin-top: 0.9rem;
+            }
+            .dashboard-pill {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.45rem;
+                min-height: 34px;
+                padding: 0.45rem 0.8rem;
+                border-radius: 999px;
+                background: rgba(255, 255, 255, 0.12);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                color: #F8FAFC;
+                font-size: 0.82rem;
+                font-weight: 700;
+            }
+            .dashboard-pill-soft {
+                background: #F8F1D5;
+                color: #8B6B1B;
+                border-color: rgba(212, 160, 23, 0.2);
+            }
+            .dashboard-three-column {
+                display: grid;
+                grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.25fr) minmax(300px, 0.95fr);
+                gap: 1rem;
+                align-items: start;
+            }
+            .dashboard-primary-column {
+                grid-column: span 2;
+                display: grid;
+                gap: 1rem;
+            }
+            .dashboard-sidebar {
+                display: grid;
+            }
+            .dashboard-sidebar-stack {
+                display: grid;
+                gap: 1rem;
+            }
+            .dashboard-sticky-panel {
+                position: sticky;
+                top: 100px;
+            }
+            .dashboard-panel {
+                background: #FFFFFF;
+                border: 1px solid rgba(217, 226, 236, 0.82);
+                border-radius: 24px;
+                padding: 1.25rem;
+                box-shadow: 0 12px 24px rgba(15, 23, 42, 0.06);
+            }
+            .dashboard-gradient-panel {
+                background: linear-gradient(180deg, #FFFFFF 0%, #F8FBFD 100%);
+            }
+            .dashboard-panel-heading {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+                gap: 0.9rem;
+                margin-bottom: 0.9rem;
+            }
+            .dashboard-panel-heading h2 {
+                margin: 0;
+                color: var(--navy);
+                font-size: 1.18rem;
+            }
+            .dashboard-panel-heading p {
+                margin: 0.28rem 0 0;
+                color: var(--text-muted);
+                line-height: 1.55;
+                font-size: 0.92rem;
+            }
+            .dashboard-stats-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0.95rem;
+            }
+            .dashboard-stat-link {
+                display: block;
+            }
+            .dashboard-stat-card {
+                height: 100%;
+                padding: 1.1rem 1.15rem;
+                border-radius: 20px;
+                border: 1px solid rgba(217, 226, 236, 0.8);
+                background: linear-gradient(180deg, #FFFFFF 0%, #F9FBFD 100%);
+                box-shadow: 0 10px 18px rgba(15, 23, 42, 0.05);
+                transition: transform 0.18s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+                position: relative;
+                overflow: hidden;
+            }
+            .dashboard-stat-card::before {
+                content: "";
+                position: absolute;
+                inset: 0 auto 0 0;
+                width: 5px;
+                border-radius: 20px 0 0 20px;
+                background: var(--card-accent, var(--gold));
+            }
+            .dashboard-stat-link:hover .dashboard-stat-card,
+            .dashboard-stat-link:focus-visible .dashboard-stat-card {
+                transform: translateY(-4px);
+                box-shadow: 0 18px 28px rgba(15, 23, 42, 0.1);
+                border-color: rgba(16, 42, 68, 0.14);
+            }
+            .dashboard-stat-head {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 0.8rem;
+                margin-bottom: 0.8rem;
+            }
+            .dashboard-stat-head > i {
+                color: var(--card-accent, var(--gold));
+                font-size: 1rem;
+            }
+            .stat-icon {
+                width: 42px;
+                height: 42px;
+                border-radius: 14px;
+                display: grid;
+                place-items: center;
+                background: rgba(16, 42, 68, 0.08);
+                color: var(--card-accent, var(--gold));
+                font-size: 1.1rem;
+            }
+            .dashboard-stat-card small {
+                display: block;
+                color: var(--text-muted);
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                font-size: 0.72rem;
+                font-weight: 800;
+            }
+            .dashboard-stat-card strong {
+                display: block;
+                margin-top: 0.55rem;
+                color: var(--navy);
+                font-size: clamp(1.4rem, 1.9vw, 1.85rem);
+                line-height: 1.12;
+            }
+            .dashboard-stat-card p {
+                margin: 0.5rem 0 0;
+                color: var(--text-muted);
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            .quick-actions-panel {
+                display: grid;
+                gap: 0.95rem;
+            }
+            .action-stack {
+                display: grid;
+                gap: 0.85rem;
+            }
+            .action-panel {
+                padding: 1.05rem;
+                border-radius: 20px;
+                border: 1px solid rgba(217, 226, 236, 0.8);
+                background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+                box-shadow: 0 10px 18px rgba(15, 23, 42, 0.05);
+                transition: transform 0.18s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+            }
+            .action-panel:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 18px 28px rgba(15, 23, 42, 0.1);
+                border-color: rgba(16, 42, 68, 0.14);
+            }
+            .action-panel-primary {
+                background: linear-gradient(135deg, rgba(212, 160, 23, 0.18) 0%, rgba(255, 255, 255, 1) 72%);
+                border-color: rgba(212, 160, 23, 0.3);
+            }
+            .action-panel-header {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.85rem;
+                margin-bottom: 0.9rem;
+            }
+            .action-panel-icon {
+                width: 44px;
+                height: 44px;
+                border-radius: 14px;
+                display: grid;
+                place-items: center;
+                background: #F8F1D5;
+                color: #8B6B1B;
+                font-size: 1.1rem;
+                flex-shrink: 0;
+            }
+            .action-panel h3 {
+                margin: 0 0 0.25rem;
+                color: var(--navy);
+                font-size: 1.03rem;
+            }
+            .action-panel p {
+                margin: 0;
+                color: var(--text-muted);
+                font-size: 0.9rem;
+                line-height: 1.55;
+            }
+            .action-panel .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .activity-list {
+                display: grid;
+                gap: 0.75rem;
+            }
+            .activity-item,
+            .widget-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.85rem;
+                padding: 0.95rem;
+                border-radius: 18px;
+                border: 1px solid rgba(217, 226, 236, 0.74);
+                background: #FBFDFF;
+                transition: transform 0.18s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+            }
+            .activity-item:hover,
+            .widget-item:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 14px 22px rgba(15, 23, 42, 0.07);
+                border-color: rgba(16, 42, 68, 0.14);
+            }
+            .activity-icon,
+            .widget-icon,
+            .task-check {
+                width: 40px;
+                height: 40px;
+                border-radius: 12px;
+                display: grid;
+                place-items: center;
+                background: rgba(16, 42, 68, 0.08);
+                color: var(--navy-soft);
+                font-size: 1rem;
+                flex-shrink: 0;
+            }
+            .activity-copy strong,
+            .widget-copy strong,
+            .task-copy strong {
+                display: block;
+                color: var(--navy);
+                font-size: 0.96rem;
+                margin-bottom: 0.18rem;
+            }
+            .activity-copy p,
+            .widget-copy p,
+            .task-copy p {
+                margin: 0;
+                color: var(--text-muted);
+                line-height: 1.5;
+                font-size: 0.9rem;
+            }
+            .activity-time,
+            .widget-copy span {
+                display: inline-block;
+                margin-top: 0.4rem;
+                color: var(--navy-soft);
+                font-size: 0.81rem;
+                font-weight: 700;
+            }
+            .widget-list,
+            .task-list {
+                display: grid;
+                gap: 0.75rem;
+            }
+            .task-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.85rem;
+                padding: 0.9rem;
+                border-radius: 18px;
+                border: 1px solid rgba(217, 226, 236, 0.74);
+                background: #FBFDFF;
+            }
+            .task-item.is-complete {
+                background: linear-gradient(180deg, #F7FBF8 0%, #FFFFFF 100%);
+            }
+            .task-item.is-complete .task-check {
+                background: rgba(34, 197, 94, 0.12);
+                color: #15803D;
+            }
+            .analytics-summary {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+                margin-bottom: 0.9rem;
+            }
+            .analytics-summary strong {
+                color: var(--navy);
+                font-size: 1.65rem;
+                line-height: 1;
+            }
+            .analytics-summary p {
+                margin: 0.28rem 0 0;
+                color: var(--text-muted);
+                font-size: 0.9rem;
+            }
+            .chart-bars {
+                height: 260px;
+                display: grid;
+                grid-template-columns: repeat(6, minmax(0, 1fr));
+                gap: 0.75rem;
+                align-items: end;
+            }
+            .chart-bars-wide {
+                width: 100%;
+            }
+            .chart-bar-group {
+                display: grid;
+                justify-items: center;
+                gap: 0.5rem;
+            }
+            .chart-value {
+                color: var(--navy);
+                font-size: 0.82rem;
+                font-weight: 800;
+            }
+            .chart-bar {
+                width: 100%;
+                max-width: none;
+                height: 185px;
+                display: flex;
+                align-items: flex-end;
+                padding: 0.35rem;
+                border-radius: 18px;
+                background: linear-gradient(180deg, rgba(16, 42, 68, 0.08) 0%, rgba(212, 160, 23, 0.16) 100%);
+                border: 1px solid rgba(217, 226, 236, 0.72);
+            }
+            .chart-fill {
+                display: block;
+                width: 100%;
+                min-height: 12px;
+                border-radius: 14px;
+                background: linear-gradient(180deg, #F2D689 0%, #D4A017 100%);
+                box-shadow: 0 10px 16px rgba(212, 160, 23, 0.2);
+            }
+            .chart-label {
+                color: var(--text-muted);
+                font-size: 0.82rem;
+                font-weight: 700;
+            }
+            .empty-state {
+                padding: 1rem;
+                border-radius: 18px;
+                border: 1px dashed rgba(16, 42, 68, 0.18);
+                background: #FBFDFF;
+                color: var(--text-muted);
+                text-align: left;
+            }
+            .empty-state strong {
+                display: block;
+                color: var(--navy);
+                margin-bottom: 0.35rem;
+            }
+            .top-listing-card {
+                display: grid;
+                gap: 1rem;
+            }
+            .top-listing-copy h3 {
+                margin: 0.7rem 0 0.4rem;
+                color: var(--navy);
+                font-size: 1.18rem;
+            }
+            .top-listing-copy p {
+                margin: 0;
+                color: var(--text-muted);
+                line-height: 1.55;
+                font-size: 0.9rem;
+            }
+            .mini-stats-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0.7rem;
+            }
+            .mini-stat {
+                padding: 0.85rem 0.9rem;
+                border-radius: 16px;
+                border: 1px solid rgba(217, 226, 236, 0.78);
+                background: rgba(255, 255, 255, 0.88);
+            }
+            .mini-stat small {
+                color: var(--text-muted);
+                font-size: 0.72rem;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                font-weight: 800;
+            }
+            .mini-stat strong {
+                display: block;
+                margin-top: 0.45rem;
+                color: var(--navy);
+                font-size: 1.25rem;
+            }
+            .recent-listings-grid {
+                margin-top: 0;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 1rem;
+            }
+            .dashboard-card-link {
+                display: block;
+            }
+            .dashboard-card-link:hover .property-card {
+                transform: translateY(-4px);
+                box-shadow: 0 18px 28px rgba(15, 23, 42, 0.1);
+            }
             .dashboard-metrics {
                 display: grid;
                 grid-template-columns: repeat(4, 240px);
@@ -885,10 +1343,36 @@
                 .hero-stats { grid-template-columns: 1fr; }
                 .section-grid { grid-template-columns: 1fr; }
                 .form-grid { grid-template-columns: 1fr; }
+                .container {
+                    width: min(100%, calc(100% - 1rem));
+                    padding-inline: 0.35rem;
+                }
+                .dashboard-three-column {
+                    grid-template-columns: 1fr;
+                }
+                .dashboard-primary-column {
+                    grid-column: auto;
+                }
+                .dashboard-banner {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+                .dashboard-banner-actions {
+                    width: 100%;
+                    align-items: stretch;
+                }
+                .dashboard-stats-grid,
                 .dashboard-hero-grid,
                 .dashboard-metrics {
                     grid-template-columns: repeat(2, minmax(240px, 1fr));
                     width: 100%;
+                }
+                .dashboard-sticky-panel {
+                    position: static;
+                }
+                .mini-stats-grid,
+                .recent-listings-grid {
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
                 }
                 .dashboard-topbar {
                     flex-direction: column;
@@ -909,6 +1393,37 @@
                 .detail-visual { height: 240px; }
                 .dashboard-metrics { grid-template-columns: 1fr; }
                 .hero-card-large { padding: 2rem 1.25rem; }
+                .dashboard-panel,
+                .dashboard-banner {
+                    padding: 1rem;
+                }
+                .dashboard-stats-grid,
+                .mini-stats-grid,
+                .recent-listings-grid {
+                    grid-template-columns: 1fr;
+                }
+                .chart-bars {
+                    height: auto;
+                    grid-template-columns: 1fr;
+                }
+                .chart-bar-group {
+                    grid-template-columns: 48px 1fr 44px;
+                    align-items: center;
+                    gap: 0.75rem;
+                }
+                .chart-value {
+                    order: 3;
+                }
+                .chart-bar {
+                    max-width: none;
+                    width: 100%;
+                    height: 18px;
+                    align-items: stretch;
+                }
+                .chart-fill {
+                    height: 100% !important;
+                    width: var(--bar-width, 0%);
+                }
             }
         </style>
     </head>
@@ -932,20 +1447,32 @@
                             @endif
 
                             @if(!request()->routeIs('reservations'))
-                                <a href="{{ route('reservations') }}" class="btn btn-secondary">Reservations</a>
+                                <a href="{{ route('reservations') }}" class="btn btn-secondary">
+                                    <i class="bi bi-calendar-check" aria-hidden="true"></i>
+                                    <span>Reservations</span>
+                                </a>
                             @endif
 
                             @if(!request()->routeIs('listings', 'listings.edit', 'listings.update', 'listings.destroy'))
-                                <a href="{{ route('listings') }}" class="btn btn-secondary">Edit Listing Details</a>
+                                <a href="{{ route('listings') }}" class="btn btn-secondary">
+                                    <i class="bi bi-pencil-square" aria-hidden="true"></i>
+                                    <span>Edit Listing Details</span>
+                                </a>
                             @endif
 
                             @if(!request()->routeIs('listings.create', 'listings.store'))
-                                <a href="{{ route('listings.create') }}" class="btn btn-primary">Add Listing</a>
+                                <a href="{{ route('listings.create') }}" class="btn btn-primary">
+                                    <i class="bi bi-plus-circle" aria-hidden="true"></i>
+                                    <span>Add Listing</span>
+                                </a>
                             @endif
 
                             <form method="POST" action="{{ route('logout') }}" class="logout-form">
                                 @csrf
-                                <button type="submit" class="btn btn-danger">Logout</button>
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+                                    <span>Logout</span>
+                                </button>
                             </form>
                         </div>
                     @else
