@@ -11,6 +11,14 @@ class Property extends Model
 {
     use HasFactory;
 
+    protected const DEFAULT_IMAGES = [
+        'skyline-ridge-home' => 'images/house1.jpg',
+        'parklane-condo' => 'images/house2.jpg',
+        'harbor-crest-penthouse' => 'images/house3.jpg',
+        'riverbend-villa' => 'images/house4.jpg',
+        'mountain-view-cottage' => 'images/house5.jpg',
+    ];
+
     protected $fillable = [
         'user_id',
         'slug',
@@ -24,13 +32,24 @@ class Property extends Model
         'details',
     ];
 
+    protected $casts = [
+        'tags' => 'array',
+        'details' => 'array',
+    ];
+
     public function getImageAttribute($value): string
     {
         if (!empty($value)) {
             return (string) $value;
         }
 
-        return (string) ($this->attributes['image_path'] ?? '');
+        if (!empty($this->attributes['image_path'])) {
+            return (string) $this->attributes['image_path'];
+        }
+
+        $slug = (string) ($this->attributes['slug'] ?? '');
+
+        return self::DEFAULT_IMAGES[$slug] ?? 'images/CompanyLOGO.png';
     }
 
     public function getSummaryAttribute($value): string

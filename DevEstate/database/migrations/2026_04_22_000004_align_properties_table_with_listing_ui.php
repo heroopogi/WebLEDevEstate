@@ -13,6 +13,17 @@ return new class extends Migration
      */
     public function up(): void
     {
+        $driver = Schema::getConnection()->getDriverName();
+        $hasLegacyImagePath = Schema::hasColumn('properties', 'image_path');
+        $hasLegacyBedrooms = Schema::hasColumn('properties', 'bedrooms');
+        $hasLegacyBathrooms = Schema::hasColumn('properties', 'bathrooms');
+        $hasLegacyParkingSpaces = Schema::hasColumn('properties', 'parking_spaces');
+        $hasLegacyFloorArea = Schema::hasColumn('properties', 'floor_area');
+        $hasLegacyLotArea = Schema::hasColumn('properties', 'lot_area');
+        $hasLegacyLocation = Schema::hasColumn('properties', 'location');
+        $hasLegacyPropertyType = Schema::hasColumn('properties', 'property_type');
+        $hasUserId = Schema::hasColumn('properties', 'user_id');
+
         Schema::table('properties', function (Blueprint $table) {
             if (!Schema::hasColumn('properties', 'image')) {
                 $table->string('image')->nullable()->after('slug');
@@ -31,13 +42,26 @@ return new class extends Migration
             }
         });
 
-        DB::statement("ALTER TABLE properties MODIFY price VARCHAR(255) NOT NULL");
+        if ($driver !== 'sqlite') {
+            DB::statement("ALTER TABLE properties MODIFY price VARCHAR(255) NOT NULL");
+        }
 
         $firstUserId = DB::table('users')->orderBy('id')->value('id');
 
         DB::table('properties')
             ->orderBy('id')
-            ->chunkById(100, function ($properties) use ($firstUserId) {
+            ->chunkById(100, function ($properties) use (
+                $firstUserId,
+                $hasLegacyImagePath,
+                $hasLegacyBedrooms,
+                $hasLegacyBathrooms,
+                $hasLegacyParkingSpaces,
+                $hasLegacyFloorArea,
+                $hasLegacyLotArea,
+                $hasLegacyLocation,
+                $hasLegacyPropertyType,
+                $hasUserId
+            ) {
                 foreach ($properties as $property) {
                     $tags = [];
 
@@ -50,15 +74,15 @@ return new class extends Migration
                     }
 
                     if (empty($tags)) {
-                        if (!empty($property->bedrooms)) {
+                        if ($hasLegacyBedrooms && !empty($property->bedrooms)) {
                             $tags[] = $property->bedrooms . ' Bed' . ((int) $property->bedrooms === 1 ? '' : 's');
                         }
 
-                        if (!empty($property->bathrooms)) {
+                        if ($hasLegacyBathrooms && !empty($property->bathrooms)) {
                             $tags[] = $property->bathrooms . ' Bath' . ((int) $property->bathrooms === 1 ? '' : 's');
                         }
 
-                        if (!empty($property->parking_spaces)) {
+                        if ($hasLegacyParkingSpaces && !empty($property->parking_spaces)) {
                             $tags[] = $property->parking_spaces . ' Parking';
                         }
                     }
@@ -75,10 +99,10 @@ return new class extends Migration
 
                     if (empty($details)) {
                         $details = array_values(array_filter([
-                            !empty($property->floor_area) ? ['label' => 'Floor Area', 'value' => $property->floor_area . ' sqm'] : null,
-                            !empty($property->lot_area) ? ['label' => 'Lot Area', 'value' => $property->lot_area . ' sqm'] : null,
-                            !empty($property->location) ? ['label' => 'Location', 'value' => $property->location] : null,
-                            !empty($property->property_type) ? ['label' => 'Style', 'value' => $property->property_type] : null,
+                            $hasLegacyFloorArea && !empty($property->floor_area) ? ['label' => 'Floor Area', 'value' => $property->floor_area . ' sqm'] : null,
+                            $hasLegacyLotArea && !empty($property->lot_area) ? ['label' => 'Lot Area', 'value' => $property->lot_area . ' sqm'] : null,
+                            $hasLegacyLocation && !empty($property->location) ? ['label' => 'Location', 'value' => $property->location] : null,
+                            $hasLegacyPropertyType && !empty($property->property_type) ? ['label' => 'Style', 'value' => $property->property_type] : null,
                         ]));
                     }
 
@@ -95,13 +119,13 @@ return new class extends Migration
 
                     $updates = [
                         'price' => $formattedPrice,
-                        'image' => $property->image ?: $property->image_path,
+                        'image' => $property->image ?: ($hasLegacyImagePath ? $property->image_path : null),
                         'summary' => $summary,
                         'tags' => json_encode(array_values($tags)),
                         'details' => json_encode(array_values($details)),
                     ];
 
-                    if ($firstUserId && empty($property->user_id)) {
+                    if ($hasUserId && $firstUserId && empty($property->user_id)) {
                         $updates['user_id'] = $firstUserId;
                     }
 
@@ -117,8 +141,13 @@ return new class extends Migration
      */
     public function down(): void
     {
+        $driver = Schema::getConnection()->getDriverName();
+
         DB::statement("UPDATE properties SET price = REPLACE(REPLACE(REPLACE(price, '$', ''), ',', ''), ' ', '')");
-        DB::statement("ALTER TABLE properties MODIFY price BIGINT UNSIGNED NOT NULL");
+
+        if ($driver !== 'sqlite') {
+            DB::statement("ALTER TABLE properties MODIFY price BIGINT UNSIGNED NOT NULL");
+        }
 
         Schema::table('properties', function (Blueprint $table) {
             if (Schema::hasColumn('properties', 'details')) {

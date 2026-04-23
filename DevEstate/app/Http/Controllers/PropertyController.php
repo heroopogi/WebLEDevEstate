@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Property;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 
@@ -34,15 +35,165 @@ class PropertyController extends Controller
         return null;
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $filters = $this->normalizeFilters($request);
+
         if (session('logged_in')) {
-            $properties = Property::with('user')->where('user_id', $this->currentUserId())->latest()->get();
+            $properties = Property::with('user')
+                ->where('user_id', $this->currentUserId())
+                ->latest()
+                ->get();
         } else {
-            $properties = Property::with('user')->latest()->get();
+            $properties = Property::with('user')
+                ->latest()
+                ->get();
         }
 
-        return view('listings', compact('properties'));
+        if ($this->hasActiveFilters($filters)) {
+            $properties = $this->applyFilters($properties, $filters);
+        }
+
+        return view('listings', [
+            'properties' => $properties,
+            'filters' => $filters,
+            'hasActiveFilters' => $this->hasActiveFilters($filters),
+        ]);
+    }
+
+    protected function normalizeFilters(Request $request): array
+    {
+        return [
+            'search' => trim((string) $request->input('search', '')),
+            'property_type' => trim(Str::lower((string) $request->input('property_type', ''))),
+            'price_range' => trim((string) $request->input('price_range', '')),
+            'bedrooms' => (int) $request->input('bedrooms', 0),
+        ];
+    }
+
+    protected function hasActiveFilters(array $filters): bool
+    {
+        return $filters['search'] !== ''
+            || $filters['property_type'] !== ''
+            || $filters['price_range'] !== ''
+            || $filters['bedrooms'] > 0;
+    }
+
+    protected function applyFilters(Collection $properties, array $filters): Collection
+    {
+        return $properties
+            ->filter(function (Property $property) use ($filters) {
+                if ($filters['search'] !== '' && !$this->propertyMatchesSearch($property, $filters['search'])) {
+                    return false;
+                }
+
+                if ($filters['property_type'] !== '' && !$this->propertyMatchesType($property, $filters['property_type'])) {
+                    return false;
+                }
+
+                if ($filters['price_range'] !== '' && !$this->propertyMatchesPriceRange($property, $filters['price_range'])) {
+                    return false;
+                }
+
+                if ($filters['bedrooms'] > 0 && $this->extractBedrooms($property) < $filters['bedrooms']) {
+                    return false;
+                }
+
+                return true;
+            })
+            ->values();
+    }
+
+    protected function propertyMatchesSearch(Property $property, string $search): bool
+    {
+        $haystack = Str::lower($this->propertySearchText($property));
+
+        foreach (preg_split('/\s+/', Str::lower(trim($search))) as $term) {
+            if ($term === '') {
+                continue;
+            }
+
+            if (!str_contains($haystack, $term)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    protected function propertyMatchesType(Property $property, string $propertyType): bool
+    {
+        $needle = str_replace('-', ' ', Str::lower(trim($propertyType)));
+        $haystack = Str::lower($this->propertySearchText($property));
+
+        return $needle === '' || str_contains($haystack, $needle);
+    }
+
+    protected function propertyMatchesPriceRange(Property $property, string $priceRange): bool
+    {
+        $price = $this->extractPrice($property->price);
+
+        return match ($priceRange) {
+            '500k' => $price > 0 && $price <= 500000,
+            '800k' => $price > 0 && $price <= 800000,
+            '1200k' => $price > 0 && $price <= 1200000,
+            '1200k-plus' => $price >= 1200000,
+            default => true,
+        };
+    }
+
+    protected function propertySearchText(Property $property): string
+    {
+        $tags = collect($property->tags ?? [])
+            ->implode(' ');
+
+        $details = collect($property->details ?? [])
+            ->map(function ($detail) {
+                if (!is_array($detail)) {
+                    return '';
+                }
+
+                return trim(($detail['label'] ?? '') . ' ' . ($detail['value'] ?? ''));
+            })
+            ->implode(' ');
+
+        return implode(' ', array_filter([
+            $property->name,
+            $property->badge,
+            $property->summary,
+            $property->description,
+            $tags,
+            $details,
+        ]));
+    }
+
+    protected function extractPrice(string $price): float
+    {
+        $numeric = preg_replace('/[^0-9.]/', '', $price);
+
+        return is_numeric($numeric) ? (float) $numeric : 0;
+    }
+
+    protected function extractBedrooms(Property $property): int
+    {
+        $sources = array_merge(
+            $property->tags ?? [],
+            collect($property->details ?? [])
+                ->map(fn ($detail) => is_array($detail) ? ($detail['value'] ?? '') : '')
+                ->all()
+        );
+
+        $bedrooms = collect($sources)
+            ->map(function ($source) {
+                if (preg_match('/(\d+)\s*(bed|beds|room|rooms|suite|suites)/i', (string) $source, $matches)) {
+                    return (int) $matches[1];
+                }
+
+                return 0;
+            })
+            ->max();
+
+        return (int) $bedrooms;
     }
 
     public function create()

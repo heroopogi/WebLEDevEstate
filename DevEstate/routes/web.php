@@ -48,7 +48,18 @@ Route::post('/login', function (Request $request) {
         'password' => 'required|string',
     ]);
 
-    $user = User::whereRaw('BINARY name = ?', [$request->input('username')])->first();
+    if (!User::query()->exists()) {
+        return redirect()
+            ->route('register.admin')
+            ->with('status', 'Create your first admin account before signing in.');
+    }
+
+    $username = $request->input('username');
+    $user = User::query()
+        ->where('name', $username)
+        ->orWhereRaw('LOWER(name) = LOWER(?)', [$username])
+        ->get()
+        ->first(fn (User $candidate) => $candidate->name === $username);
 
     if ($user && Hash::check($request->input('password'), $user->password)) {
         $request->session()->put('logged_in', true);

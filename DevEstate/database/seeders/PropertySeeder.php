@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Property;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class PropertySeeder extends Seeder
@@ -12,8 +13,13 @@ class PropertySeeder extends Seeder
      */
     public function run(): void
     {
+        $axel = User::where('name', 'axel')
+            ->orWhereRaw('LOWER(name) = LOWER(?)', ['axel'])
+            ->first();
+
         $properties = [
             [
+                'user_id' => $axel?->id,
                 'slug' => 'skyline-ridge-home',
                 'name' => 'Skyline Ridge Home',
                 'image' => 'images/house1.jpg',
@@ -30,6 +36,7 @@ class PropertySeeder extends Seeder
                 ],
             ],
             [
+                'user_id' => $axel?->id,
                 'slug' => 'parklane-condo',
                 'name' => 'Parklane Condo',
                 'image' => 'images/house2.jpg',
@@ -46,6 +53,7 @@ class PropertySeeder extends Seeder
                 ],
             ],
             [
+                'user_id' => $axel?->id,
                 'slug' => 'harbor-crest-penthouse',
                 'name' => 'Harbor Crest Penthouse',
                 'image' => 'images/house3.jpg',
@@ -62,6 +70,7 @@ class PropertySeeder extends Seeder
                 ],
             ],
             [
+                'user_id' => $axel?->id,
                 'slug' => 'riverbend-villa',
                 'name' => 'Riverbend Villa',
                 'image' => 'images/house4.jpg',
@@ -78,6 +87,7 @@ class PropertySeeder extends Seeder
                 ],
             ],
             [
+                'user_id' => $axel?->id,
                 'slug' => 'mountain-view-cottage',
                 'name' => 'Mountain View Cottage',
                 'image' => 'images/house5.jpg',
@@ -96,7 +106,7 @@ class PropertySeeder extends Seeder
         ];
 
         foreach ($properties as $property) {
-            \App\Models\Property::updateOrCreate(
+            Property::updateOrCreate(
                 ['slug' => $property['slug']],
                 $property
             );

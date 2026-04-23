@@ -77,9 +77,9 @@
             .nav-bar {
                 display: flex;
                 align-items: center;
-                justify-content: space-between;
-                gap: 1rem;
-                min-height: 84px;
+                justify-content: flex-start;
+                gap: 1.1rem;
+                min-height: 78px;
             }
             .brand {
                 display: inline-flex;
@@ -87,6 +87,7 @@
                 gap: 0.9rem;
                 font-weight: 800;
                 color: var(--text-dark);
+                flex-shrink: 0;
             }
             .brand-mark {
                 width: 62px;
@@ -111,23 +112,44 @@
             .nav-links {
                 display: flex;
                 align-items: center;
-                gap: 1.1rem;
+                gap: 0.5rem;
                 flex-wrap: wrap;
+                margin-left: auto;
             }
             .nav-links a {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.48rem;
                 color: rgba(16, 42, 68, 0.78);
                 font-size: 0.95rem;
                 font-weight: 600;
+                padding: 0.55rem 0.9rem;
+                border-radius: 999px;
+                transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+            }
+            .nav-links a i {
+                font-size: 0.95rem;
+                color: var(--navy-soft);
                 transition: color 0.2s ease;
             }
             .nav-links a:hover,
-            .nav-links a.active { color: var(--navy); }
+            .nav-links a.active {
+                color: var(--navy);
+                background: rgba(16, 42, 68, 0.06);
+            }
+            .nav-links a:hover i,
+            .nav-links a.active i {
+                color: var(--gold);
+            }
             .nav-actions {
                 display: flex;
-                gap: 0.6rem;
+                gap: 0.45rem;
                 align-items: center;
                 flex-wrap: wrap;
                 justify-content: flex-end;
+            }
+            .nav-bar > .nav-actions {
+                margin-left: auto;
             }
             .nav-actions .btn {
                 min-height: 42px;
@@ -141,6 +163,17 @@
                 box-shadow: 0 14px 26px rgba(212, 160, 23, 0.18);
             }
             .btn-primary:hover { background: #C19313; color: var(--navy); }
+            .nav-icon-btn {
+                width: 46px;
+                min-width: 46px;
+                min-height: 46px;
+                padding: 0;
+                border-radius: 16px;
+                box-shadow: 0 14px 24px rgba(212, 160, 23, 0.24);
+            }
+            .nav-icon-btn i {
+                font-size: 1.1rem;
+            }
             .btn-secondary {
                 color: #FFFFFF;
                 border: 1px solid rgba(255, 255, 255, 0.18);
@@ -591,29 +624,45 @@
                 gap: 1.25rem;
             }
             .quick-card {
+                position: relative;
+                overflow: hidden;
                 padding: 1.55rem;
                 border-radius: 20px;
                 border: 1px solid rgba(217, 226, 236, 0.78);
-                background: #FFFFFF;
+                background: linear-gradient(180deg, #FFFFFF 0%, #FBFDFF 100%);
                 box-shadow: 0 10px 18px rgba(15, 23, 42, 0.05);
                 transition: transform 0.18s ease, box-shadow 0.22s ease;
+            }
+            .quick-card::before {
+                content: "";
+                position: absolute;
+                inset: 0 0 auto;
+                height: 4px;
+                background: linear-gradient(90deg, #F2D689 0%, #D4A017 100%);
+                opacity: 0;
+                transition: opacity 0.2s ease;
             }
             .quick-card:hover {
                 transform: translateY(-3px);
                 box-shadow: 0 16px 24px rgba(15, 23, 42, 0.09);
             }
+            .quick-card:hover::before {
+                opacity: 1;
+            }
             .icon-tile {
-                width: 48px;
-                height: 48px;
-                border-radius: 14px;
+                width: 56px;
+                height: 56px;
+                border-radius: 18px;
                 display: grid;
                 place-items: center;
-                background: #F8F1D5;
+                background: linear-gradient(180deg, #FBF2D4 0%, #F4E2A6 100%);
                 color: #8B6B1B;
-                font-size: 0.83rem;
-                font-weight: 800;
-                letter-spacing: 0.08em;
+                box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
                 margin-bottom: 1rem;
+            }
+            .icon-tile i {
+                font-size: 1.3rem;
+                line-height: 1;
             }
             .quick-card h3 {
                 margin: 0 0 0.55rem;
@@ -1386,6 +1435,8 @@
             @media (max-width: 780px) {
                 .page-shell { padding: 1.5rem 0 2.5rem; }
                 .nav-bar { flex-direction: column; align-items: stretch; }
+                .nav-bar > .nav-actions,
+                .nav-links { margin-left: 0; }
                 .nav-actions { width: 100%; justify-content: space-between; }
                 .nav-links { width: 100%; justify-content: flex-start; }
                 .hero-title { font-size: clamp(2.4rem, 8vw, 3.4rem); }
@@ -1477,11 +1528,19 @@
                         </div>
                     @else
                         <nav class="nav-links">
-                            <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a>
-                            <a href="{{ route('listings') }}" class="{{ request()->routeIs('listings') ? 'active' : '' }}">Browse Houses</a>
+                            <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">
+                                <i class="bi bi-house-door-fill" aria-hidden="true"></i>
+                                <span>Home</span>
+                            </a>
+                            <a href="{{ route('listings') }}" class="{{ request()->routeIs('listings') ? 'active' : '' }}">
+                                <i class="bi bi-buildings-fill" aria-hidden="true"></i>
+                                <span>Browse Houses</span>
+                            </a>
                         </nav>
                         <div class="nav-actions">
-                            <a href="{{ route('login') }}" class="btn btn-primary">Agent Login</a>
+                            <a href="{{ route('login') }}" class="btn btn-primary nav-icon-btn" aria-label="Agent Login" title="Agent Login">
+                                <i class="bi bi-person-fill-lock" aria-hidden="true"></i>
+                            </a>
                         </div>
                     @endif
                 </div>

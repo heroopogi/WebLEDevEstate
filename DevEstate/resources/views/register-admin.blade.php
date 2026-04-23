@@ -18,6 +18,12 @@
             <h2 class="login-title">Create Admin Account</h2>
             <p class="login-subtitle">Enter your details below to create a new admin account.</p>
 
+            @if (session('status'))
+                <div class="alert" style="margin-bottom: 1rem; background: #DCFCE7; border-color: #BBF7D0; color: #166534;">
+                    {{ session('status') }}
+                </div>
+            @endif
+
             @if ($errors->any())
                 <div class="alert">{{ $errors->first() }}</div>
             @endif

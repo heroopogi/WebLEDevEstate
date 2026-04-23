@@ -13,19 +13,17 @@ return new class extends Migration
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->index('user_id');
             $table->string('name');
             $table->string('slug')->unique();
+            $table->string('image')->nullable();
             $table->string('badge')->default('Available');
-            $table->string('property_type');
-            $table->string('location');
+            $table->string('price');
+            $table->text('summary')->nullable();
             $table->text('description');
-            $table->unsignedBigInteger('price');
-            $table->unsignedTinyInteger('bedrooms');
-            $table->unsignedTinyInteger('bathrooms');
-            $table->unsignedInteger('floor_area');
-            $table->unsignedInteger('lot_area')->nullable();
-            $table->unsignedTinyInteger('parking_spaces')->default(1);
-            $table->string('image_path');
+            $table->json('tags')->nullable();
+            $table->json('details')->nullable();
             $table->timestamps();
         });
     }
