@@ -215,7 +215,7 @@ class PropertyController extends Controller
             'name' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:5120',
             'badge' => 'required|string|max:255',
-            'price' => 'required|string|max:255',
+            'price' => ['required', 'regex:/^\d+$/'],
             'summary' => 'required|string',
             'description' => 'required|string',
             'tags' => 'required|string',
@@ -223,6 +223,8 @@ class PropertyController extends Controller
             'detail_labels.*' => 'required|string|max:255',
             'detail_values' => 'required|array|size:4',
             'detail_values.*' => 'required|string|max:255',
+        ], [
+            'price.regex' => 'The price may only contain numbers.',
         ]);
 
         $baseSlug = Str::slug($validated['name']);

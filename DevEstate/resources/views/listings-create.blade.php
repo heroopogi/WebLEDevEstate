@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label for="price" class="form-label">Price</label>
-                <input id="price" name="price" type="text" value="{{ old('price') }}" placeholder="$780,000" required class="form-input" />
+                <input id="price" name="price" type="text" value="{{ old('price') }}" placeholder="780000" inputmode="numeric" pattern="[0-9]*" required class="form-input" />
             </div>
         </div>
 
