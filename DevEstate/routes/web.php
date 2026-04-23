@@ -254,7 +254,7 @@ Route::post('/reservations', function (Request $request) use ($reservationPath, 
     $validated = $request->validate([
         'slug' => 'required|string|exists:properties,slug',
         'client_name' => 'required|string|max:255',
-        'contact_number' => 'required|string|min:7|max:30',
+        'contact_number' => ['required', 'digits:10'],
     ]);
 
     $property = Property::where('slug', $validated['slug'])->firstOrFail();
@@ -266,7 +266,7 @@ Route::post('/reservations', function (Request $request) use ($reservationPath, 
         'property_slug' => $property->slug,
         'property_name' => $property->name,
         'client_name' => $validated['client_name'],
-        'contact_number' => $validated['contact_number'],
+        'contact_number' => '+63'.$validated['contact_number'],
         'submitted_at' => now()->toDateTimeString(),
         'is_read' => false,
         'status' => 'new',

@@ -90,15 +90,22 @@
                 @enderror
 
                 <label class="form-label" for="contact_number">Contact Number</label>
-                <input
-                    id="contact_number"
-                    name="contact_number"
-                    type="tel"
-                    class="form-input"
-                    value="{{ old('contact_number') }}"
-                    placeholder="e.g. 0917 123 4567"
-                    required
-                >
+                <div class="input-group">
+                    <span class="input-group-text">+63</span>
+                    <input
+                        id="contact_number"
+                        name="contact_number"
+                        type="tel"
+                        class="form-input form-control"
+                        value="{{ old('contact_number') }}"
+                        placeholder="e.g. 9171234567"
+                        inputmode="numeric"
+                        pattern="[0-9]{10}"
+                        minlength="10"
+                        maxlength="10"
+                        required
+                    >
+                </div>
                 @error('contact_number')
                     <p class="reservation-error">{{ $message }}</p>
                 @enderror

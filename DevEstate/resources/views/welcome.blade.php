@@ -380,32 +380,48 @@
 
     {{-- ── WHY CHOOSE US ── --}}
     <section class="lp-why-section">
-        <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:1rem;">
+        <div class="d-flex flex-column flex-md-row align-items-start justify-content-between gap-3">
             <div>
                 <h2 class="lp-section-title">Why Clients Choose DevEstate</h2>
-                <p style="margin:0.35rem 0 0; color:var(--text-muted); font-size:0.97rem;">Everything you need to find and secure your next home — in one place.</p>
+                <p class="mb-0 text-muted" style="font-size:0.97rem;">Everything you need to find and secure your next home — in one place.</p>
             </div>
         </div>
-        <div class="lp-why-grid">
-            <div class="lp-why-card">
-                <div class="lp-why-icon"><i class="bi bi-shield-check-fill"></i></div>
-                <h3>Trusted Listings</h3>
-                <p>Every property is curated and regularly verified by licensed agents — no fake listings.</p>
+        <div class="row g-3 mt-4">
+            <div class="col-12 col-md-6 col-xl-3">
+                <div class="card h-100 border-0 shadow-sm lp-why-card">
+                    <div class="lp-why-icon bg-warning bg-opacity-10 text-warning mb-3">
+                        <i class="bi bi-shield-lock-fill"></i>
+                    </div>
+                    <h5 class="mb-2">Trusted Listings</h5>
+                    <p class="mb-0 text-muted">Every property is curated and regularly verified by licensed agents — no fake listings.</p>
+                </div>
             </div>
-            <div class="lp-why-card">
-                <div class="lp-why-icon"><i class="bi bi-card-list"></i></div>
-                <h3>Clear Details</h3>
-                <p>Full specs, photos, and pricing up front so you know before you schedule a visit.</p>
+            <div class="col-12 col-md-6 col-xl-3">
+                <div class="card h-100 border-0 shadow-sm lp-why-card">
+                    <div class="lp-why-icon bg-warning bg-opacity-10 text-warning mb-3">
+                        <i class="bi bi-file-earmark-text-fill"></i>
+                    </div>
+                    <h5 class="mb-2">Clear Details</h5>
+                    <p class="mb-0 text-muted">Full specs, photos, and pricing up front so you know before you schedule a visit.</p>
+                </div>
             </div>
-            <div class="lp-why-card">
-                <div class="lp-why-icon"><i class="bi bi-lightning-charge-fill"></i></div>
-                <h3>Quick Browsing</h3>
-                <p>Find matching homes fast with intuitive filters and minimal friction — no account needed.</p>
+            <div class="col-12 col-md-6 col-xl-3">
+                <div class="card h-100 border-0 shadow-sm lp-why-card">
+                    <div class="lp-why-icon bg-warning bg-opacity-10 text-warning mb-3">
+                        <i class="bi bi-speedometer2"></i>
+                    </div>
+                    <h5 class="mb-2">Quick Browsing</h5>
+                    <p class="mb-0 text-muted">Find matching homes fast with intuitive filters and minimal friction — no account needed.</p>
+                </div>
             </div>
-            <div class="lp-why-card">
-                <div class="lp-why-icon"><i class="bi bi-person-lines-fill"></i></div>
-                <h3>Agent Guidance</h3>
-                <p>Once you shortlist properties, connect directly with a dedicated agent to move forward.</p>
+            <div class="col-12 col-md-6 col-xl-3">
+                <div class="card h-100 border-0 shadow-sm lp-why-card">
+                    <div class="lp-why-icon bg-warning bg-opacity-10 text-warning mb-3">
+                        <i class="bi bi-chat-dots-fill"></i>
+                    </div>
+                    <h5 class="mb-2">Agent Guidance</h5>
+                    <p class="mb-0 text-muted">Once you shortlist properties, connect directly with a dedicated agent to move forward.</p>
+                </div>
             </div>
         </div>
     </section>
