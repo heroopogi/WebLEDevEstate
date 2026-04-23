@@ -295,73 +295,86 @@ class PropertyController extends Controller
 
         $property = $this->findOwnedProperty($slug);
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
-            'badge' => 'required|string|max:255',
-            'price' => 'required|string|max:255',
-            'summary' => 'required|string',
-            'description' => 'required|string',
-            'tags' => 'required|string',
-            'detail_labels' => 'required|array|size:4',
-            'detail_labels.*' => 'required|string|max:255',
-            'detail_values' => 'required|array|size:4',
-            'detail_values.*' => 'required|string|max:255',
-        ]);
+        $validated = $request->validate(
+            [
+                'name' => 'required|string|max:255',
+                'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+                'badge' => 'required|string|max:255',
+                'price' => ['required', 'regex:/^\d+$/'],
+                'summary' => 'required|string',
+                'description' => 'required|string',
+                'tags' => 'required|string',
+                'detail_labels' => 'required|array|size:4',
+                'detail_labels.*' => 'required|string|max:255',
+                'detail_values' => 'required|array|size:4',
+                'detail_values.*' => 'required|string|max:255',
+            ],
+            [
+                'price.regex' => 'The price may only contain numbers.',
+            ]
+        );
 
-        $newBaseSlug = Str::slug($validated['name']);
-        $newSlug = $newBaseSlug;
-        $counter = 1;
+        try {
+            $newBaseSlug = Str::slug($validated['name']);
+            $newSlug = $newBaseSlug;
+            $counter = 1;
 
-        while (Property::where('slug', $newSlug)->where('id', '!=', $property->id)->exists()) {
-            $newSlug = $newBaseSlug . '-' . $counter;
-            $counter++;
-        }
-
-        $imagePath = $property->image;
-
-        if ($request->hasFile('image')) {
-            $imageDirectory = public_path('images/listings');
-
-            if (!File::exists($imageDirectory)) {
-                File::makeDirectory($imageDirectory, 0755, true);
+            while (Property::where('slug', $newSlug)->where('id', '!=', $property->id)->exists()) {
+                $newSlug = $newBaseSlug . '-' . $counter;
+                $counter++;
             }
 
-            if ($property->image && File::exists(public_path($property->image))) {
-                File::delete(public_path($property->image));
+            $imagePath = $property->image;
+
+            if ($request->hasFile('image')) {
+                $imageDirectory = public_path('images/listings');
+
+                if (!File::exists($imageDirectory)) {
+                    File::makeDirectory($imageDirectory, 0755, true);
+                }
+
+                if ($property->image && File::exists(public_path($property->image))) {
+                    File::delete(public_path($property->image));
+                }
+
+                $imageFile = $request->file('image');
+                $imageName = $newSlug . '-' . time() . '.' . $imageFile->getClientOriginalExtension();
+                $imageFile->move($imageDirectory, $imageName);
+                $imagePath = 'images/listings/' . $imageName;
             }
 
-            $imageFile = $request->file('image');
-            $imageName = $newSlug . '-' . time() . '.' . $imageFile->getClientOriginalExtension();
-            $imageFile->move($imageDirectory, $imageName);
-            $imagePath = 'images/listings/' . $imageName;
+            $tags = collect(explode(',', $validated['tags']))
+                ->map(fn ($tag) => trim($tag))
+                ->filter()
+                ->values()
+                ->all();
+
+            $details = collect($validated['detail_labels'])
+                ->zip($validated['detail_values'])
+                ->map(fn ($pair) => [
+                    'label' => $pair[0],
+                    'value' => $pair[1],
+                ])
+                ->all();
+
+            $property->update([
+                'slug' => $newSlug,
+                'name' => $validated['name'],
+                'image' => $imagePath,
+                'badge' => $validated['badge'],
+                'price' => $validated['price'],
+                'summary' => $validated['summary'],
+                'description' => $validated['description'],
+                'tags' => $tags,
+                'details' => $details,
+            ]);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return back()
+                ->withInput()
+                ->withErrors(['update' => 'We could not update this listing right now. Please try again.']);
         }
-
-        $tags = collect(explode(',', $validated['tags']))
-            ->map(fn ($tag) => trim($tag))
-            ->filter()
-            ->values()
-            ->all();
-
-        $details = collect($validated['detail_labels'])
-            ->zip($validated['detail_values'])
-            ->map(fn ($pair) => [
-                'label' => $pair[0],
-                'value' => $pair[1],
-            ])
-            ->all();
-
-        $property->update([
-            'slug' => $newSlug,
-            'name' => $validated['name'],
-            'image' => $imagePath,
-            'badge' => $validated['badge'],
-            'price' => $validated['price'],
-            'summary' => $validated['summary'],
-            'description' => $validated['description'],
-            'tags' => $tags,
-            'details' => $details,
-        ]);
 
         return redirect()
             ->route('details', ['slug' => $property->slug])

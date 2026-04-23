@@ -29,7 +29,7 @@
             </div>
             <div class="form-group">
                 <label for="price" class="form-label">Price</label>
-                <input id="price" name="price" type="text" value="{{ old('price', $property->price) }}" required class="form-input" />
+                <input id="price" name="price" type="text" value="{{ old('price', preg_replace('/[^0-9]/', '', (string) $property->getRawOriginal('price'))) }}" required class="form-input" />
             </div>
         </div>
 
