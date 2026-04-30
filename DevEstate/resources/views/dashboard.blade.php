@@ -256,7 +256,7 @@
                         @forelse ($latestOwnedReservations as $reservation)
                             <div class="widget-item">
                                 <span class="widget-icon">
-                                    <i class="bi {{ ($reservation['status'] ?? 'new') === 'accepted' ? 'bi-check2-circle' : 'bi-bell' }}" aria-hidden="true"></i>
+                                    <i class="bi {{ in_array(($reservation['status'] ?? 'new'), ['confirmed', 'done'], true) ? 'bi-check2-circle' : 'bi-bell' }}" aria-hidden="true"></i>
                                 </span>
                                 <div class="widget-copy">
                                     <strong>{{ $reservation['client_name'] }}</strong>

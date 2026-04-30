@@ -351,15 +351,23 @@
 
             /* Detail page styles */
             .detail-card {
-                max-width: 800px;
+                max-width: 1120px;
                 margin: 0 auto;
+                padding: clamp(1.4rem, 2vw, 2.1rem);
+            }
+            .detail-hero {
+                display: grid;
+                grid-template-columns: minmax(320px, 1.05fr) minmax(280px, 0.95fr);
+                gap: 1.5rem;
+                align-items: stretch;
+                margin-bottom: 1.5rem;
             }
             .detail-visual {
-                margin-bottom: 1.5rem;
                 border-radius: 24px;
                 overflow: hidden;
-                height: 360px;
-                box-shadow: 0 18px 32px rgba(15, 23, 42, 0.1);
+                min-height: 100%;
+                height: 100%;
+                box-shadow: 0 18px 32px rgba(15, 23, 42, 0.12);
             }
             .detail-visual img {
                 width: 100%;
@@ -367,74 +375,226 @@
                 object-fit: cover;
                 display: block;
             }
+            .detail-main {
+                display: grid;
+                gap: 1.2rem;
+                align-content: start;
+            }
+            .detail-heading {
+                display: grid;
+                gap: 0.95rem;
+            }
             .detail-card .eyebrow {
-                display: inline-block;
-                padding: 0.5rem 1rem;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                width: fit-content;
+                padding: 0.6rem 1rem;
                 border-radius: 999px;
                 background: rgba(244, 194, 70, 0.15);
                 color: var(--gold);
-                font-size: 0.8rem;
-                font-weight: 700;
-                letter-spacing: 0.1em;
+                font-size: 0.84rem;
+                font-weight: 800;
+                letter-spacing: 0.12em;
                 text-transform: uppercase;
-                margin-bottom: 1rem;
+            }
+            .detail-card .eyebrow i {
+                font-size: 0.95rem;
             }
             .detail-card h3 {
-                font-size: 2rem;
+                font-size: clamp(2rem, 3.3vw, 3rem);
                 font-weight: 800;
                 color: var(--navy);
-                margin: 0 0 1rem;
+                line-height: 1.02;
+                margin: 0;
             }
             .detail-meta {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 0.75rem;
-                margin-bottom: 1.5rem;
+                gap: 0.7rem;
+                margin-bottom: 0;
             }
             .detail-meta span {
-                padding: 0.5rem 1rem;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.45rem;
+                padding: 0.58rem 0.9rem;
                 border-radius: 999px;
                 background: #F1F5F9;
                 color: var(--text-muted);
-                font-size: 0.85rem;
-                font-weight: 600;
+                font-size: 0.92rem;
+                font-weight: 700;
+            }
+            .detail-meta span i {
+                color: var(--navy-soft);
+                font-size: 0.92rem;
             }
             .detail-description {
                 color: var(--text-dark);
-                font-size: 1.05rem;
-                line-height: 1.7;
-                margin: 0 0 2rem;
+                font-size: 1.08rem;
+                line-height: 1.75;
+                margin: 0;
+            }
+            .detail-lead {
+                font-size: 1.14rem;
+                line-height: 1.8;
+                color: #17314C;
+            }
+            .detail-highlights {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0.95rem;
+            }
+            .detail-highlight-card {
+                display: grid;
+                gap: 0.55rem;
+                padding: 1.15rem 1.2rem;
+                border-radius: 20px;
+                background: linear-gradient(180deg, #FBFDFF 0%, #F4F8FC 100%);
+                border: 1px solid rgba(217, 226, 236, 0.9);
+                box-shadow: 0 12px 24px rgba(15, 23, 42, 0.06);
+            }
+            .detail-highlight-price {
+                background: linear-gradient(180deg, rgba(244, 194, 70, 0.18) 0%, rgba(255, 255, 255, 0.98) 100%);
+                border-color: rgba(212, 160, 23, 0.28);
+            }
+            .detail-highlight-label {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                color: var(--text-muted);
+                font-size: 0.92rem;
+                font-weight: 700;
+            }
+            .detail-highlight-label i {
+                color: var(--gold);
+                font-size: 1rem;
+            }
+            .detail-highlight-card strong {
+                color: var(--navy);
+                font-size: clamp(1.18rem, 2vw, 1.5rem);
+                line-height: 1.3;
+            }
+            .detail-sections {
+                display: grid;
+                gap: 1.15rem;
+                margin: 1.35rem 0 1.45rem;
+            }
+            .detail-section {
+                padding: 1.25rem 1.3rem;
+                border-radius: 22px;
+                border: 1px solid rgba(217, 226, 236, 0.85);
+                background: linear-gradient(180deg, #FFFFFF 0%, #FBFDFF 100%);
+            }
+            .detail-section-heading {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.9rem;
+                margin-bottom: 0.8rem;
+            }
+            .detail-section-heading > i {
+                width: 46px;
+                height: 46px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 16px;
+                background: rgba(16, 42, 68, 0.08);
+                color: var(--navy);
+                font-size: 1.2rem;
+                flex-shrink: 0;
+            }
+            .detail-section-heading h4 {
+                margin: 0 0 0.25rem;
+                color: var(--navy);
+                font-size: 1.28rem;
+            }
+            .detail-section-heading p {
+                margin: 0;
+                color: var(--text-muted);
+                font-size: 0.98rem;
+                line-height: 1.6;
+            }
+            .detail-section-copy {
+                font-size: 1.06rem;
+            }
+            .detail-feature-grid {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 0.9rem;
+            }
+            .detail-feature-card {
+                display: grid;
+                gap: 0.6rem;
+                padding: 1rem;
+                border-radius: 18px;
+                background: #F8FBFE;
+                border: 1px solid rgba(217, 226, 236, 0.9);
+            }
+            .detail-feature-card i {
+                width: 42px;
+                height: 42px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 14px;
+                background: rgba(212, 160, 23, 0.16);
+                color: var(--navy);
+                font-size: 1.12rem;
+            }
+            .detail-feature-card strong {
+                color: var(--navy);
+                font-size: 1.02rem;
+            }
+            .detail-feature-card span {
+                color: var(--text-muted);
+                font-size: 0.96rem;
+                line-height: 1.65;
             }
             .detail-list {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 1.5rem;
-                margin-bottom: 2rem;
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 0.95rem;
+                margin-bottom: 0;
             }
             .detail-item {
-                padding: 1.25rem;
-                border-radius: 16px;
-                background: #F8FAFC;
-                border: 1px solid rgba(217, 226, 236, 0.5);
+                padding: 1rem 1.05rem;
+                border-radius: 18px;
+                background: linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%);
+                border: 1px solid rgba(217, 226, 236, 0.68);
+                display: grid;
+                gap: 0.5rem;
             }
             .detail-item span {
-                display: block;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
                 color: var(--text-muted);
-                font-size: 0.9rem;
-                font-weight: 600;
-                margin-bottom: 0.5rem;
+                font-size: 0.95rem;
+                font-weight: 700;
+                margin-bottom: 0;
+            }
+            .detail-item span i {
+                color: var(--navy-soft);
+                font-size: 0.98rem;
             }
             .detail-item strong {
                 display: block;
                 color: var(--navy);
-                font-size: 1.1rem;
-                font-weight: 700;
+                font-size: 1.2rem;
+                font-weight: 800;
             }
             .inline-actions {
                 display: flex;
-                justify-content: center;
-                gap: 1rem;
+                justify-content: flex-start;
+                gap: 0.9rem;
                 flex-wrap: wrap;
+                margin-top: 1.4rem;
+            }
+            .inline-actions .btn {
+                min-height: 50px;
+                padding-inline: 1.15rem;
+                font-size: 1rem;
             }
 
             /* Alert styles */
@@ -1291,13 +1451,37 @@
             }
             .login-form { display: grid; gap: 0.75rem; }
             .form-group { margin-bottom: 1rem; }
-            .form-label { display: block; color: var(--navy); font-weight: 700; margin-bottom: 0.6rem; font-size: 0.95rem; }
-            .form-input { width: 100%; min-height: 48px; padding: 0.95rem 1rem; border-radius: 12px; border: 1px solid rgba(217, 226, 236, 0.8); background: #FFFFFF; color: var(--text-dark); font-size: 0.95rem; }
+            .form-label { display: inline-flex; align-items: center; gap: 0.45rem; color: var(--navy); font-weight: 700; margin-bottom: 0.6rem; font-size: 1rem; }
+            .form-label i { color: var(--navy-soft); font-size: 0.95rem; }
+            .form-input { width: 100%; min-height: 50px; padding: 0.95rem 1rem; border-radius: 12px; border: 1px solid rgba(217, 226, 236, 0.8); background: #FFFFFF; color: var(--text-dark); font-size: 1rem; }
             textarea.form-input { min-height: 140px; resize: vertical; }
             .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
             .form-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 0.5rem; }
             .btn-login { width: 100%; min-height: 52px; font-size: 1rem; margin-bottom: 1rem; }
             .form-note { margin: 0; color: var(--text-muted); font-size: 0.9rem; text-align: center; }
+            .input-group {
+                display: flex;
+                align-items: stretch;
+                width: 100%;
+            }
+            .input-group .form-input {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+            .input-group-text {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 62px;
+                padding: 0.95rem 0.9rem;
+                border: 1px solid rgba(217, 226, 236, 0.8);
+                border-right: 0;
+                border-radius: 12px 0 0 12px;
+                background: #F8FAFC;
+                color: var(--navy);
+                font-size: 1rem;
+                font-weight: 700;
+            }
             .reservation-overlay {
                 position: fixed;
                 inset: 0;
@@ -1328,8 +1512,15 @@
             }
             .reservation-panel-header h2 {
                 margin: 0;
-                font-size: 1.25rem;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.55rem;
+                font-size: 1.35rem;
                 color: var(--navy);
+            }
+            .reservation-panel-header h2 i {
+                color: var(--gold);
+                font-size: 1.1rem;
             }
             .reservation-close {
                 width: 34px;
@@ -1386,12 +1577,25 @@
                 background: #DCFCE7;
                 color: #166534;
             }
+            .reservation-status-confirmed {
+                background: #DCFCE7;
+                color: #166534;
+            }
+            .reservation-status-done {
+                background: #DBEAFE;
+                color: #1D4ED8;
+            }
 
             @media (max-width: 980px) {
                 .hero-card { grid-template-columns: 1fr; }
                 .hero-stats { grid-template-columns: 1fr; }
                 .section-grid { grid-template-columns: 1fr; }
                 .form-grid { grid-template-columns: 1fr; }
+                .detail-hero,
+                .detail-feature-grid,
+                .detail-highlights {
+                    grid-template-columns: 1fr;
+                }
                 .container {
                     width: min(100%, calc(100% - 1rem));
                     padding-inline: 0.35rem;
@@ -1441,7 +1645,31 @@
                 .nav-links { width: 100%; justify-content: flex-start; }
                 .hero-title { font-size: clamp(2.4rem, 8vw, 3.4rem); }
                 .cta-panel { padding: 1.7rem; }
-                .detail-visual { height: 240px; }
+                .detail-card {
+                    padding: 1rem;
+                }
+                .detail-visual {
+                    height: 240px;
+                    min-height: 240px;
+                }
+                .detail-section,
+                .detail-item {
+                    padding: 0.95rem;
+                }
+                .detail-section-heading {
+                    gap: 0.75rem;
+                }
+                .detail-section-heading > i {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 14px;
+                }
+                .inline-actions {
+                    justify-content: stretch;
+                }
+                .inline-actions .btn {
+                    width: 100%;
+                }
                 .dashboard-metrics { grid-template-columns: 1fr; }
                 .hero-card-large { padding: 2rem 1.25rem; }
                 .dashboard-panel,
@@ -1527,17 +1755,17 @@
                             </form>
                         </div>
                     @else
-                        <nav class="nav-links">
-                            <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">
-                                <i class="bi bi-house-door-fill" aria-hidden="true"></i>
-                                <span>Home</span>
-                            </a>
-                            <a href="{{ route('listings') }}" class="{{ request()->routeIs('listings') ? 'active' : '' }}">
-                                <i class="bi bi-buildings-fill" aria-hidden="true"></i>
-                                <span>Browse Houses</span>
-                            </a>
-                        </nav>
                         <div class="nav-actions">
+                            <nav class="nav-links">
+                                <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">
+                                    <i class="bi bi-house-door-fill" aria-hidden="true"></i>
+                                    <span>Home</span>
+                                </a>
+                                <a href="{{ route('listings') }}" class="{{ request()->routeIs('listings') ? 'active' : '' }}">
+                                    <i class="bi bi-buildings-fill" aria-hidden="true"></i>
+                                    <span>Browse Houses</span>
+                                </a>
+                            </nav>
                             <a href="{{ route('login') }}" class="btn btn-primary nav-icon-btn" aria-label="Agent Login" title="Agent Login">
                                 <i class="bi bi-person-fill-lock" aria-hidden="true"></i>
                             </a>

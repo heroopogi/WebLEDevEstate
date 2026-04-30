@@ -1,11 +1,11 @@
 <?php
 
 use App\Models\Property;
+use App\Models\Reservation;
 use App\Models\User;
 use App\Http\Controllers\PropertyController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -54,12 +54,14 @@ Route::post('/login', function (Request $request) {
             ->with('status', 'Create your first admin account before signing in.');
     }
 
-    $username = $request->input('username');
+    $username = trim((string) $request->input('username'));
     $user = User::query()
-        ->where('name', $username)
-        ->orWhereRaw('LOWER(name) = LOWER(?)', [$username])
-        ->get()
-        ->first(fn (User $candidate) => $candidate->name === $username);
+        ->where(function ($query) use ($username) {
+            $query->whereRaw('LOWER(name) = LOWER(?)', [$username])
+                ->orWhereRaw('LOWER(full_name) = LOWER(?)', [$username])
+                ->orWhereRaw('LOWER(email) = LOWER(?)', [$username]);
+        })
+        ->first();
 
     if ($user && Hash::check($request->input('password'), $user->password)) {
         $request->session()->put('logged_in', true);
@@ -105,27 +107,7 @@ Route::post('/logout', function (Request $request) {
     return redirect()->route('home');
 })->name('logout');
 
-$reservationPath = storage_path('app/reservations.json');
-
-$loadReservations = function () use ($reservationPath) {
-    if (!File::exists($reservationPath)) {
-        return collect();
-    }
-
-    $decoded = json_decode(File::get($reservationPath), true);
-
-    if (!is_array($decoded)) {
-        return collect();
-    }
-
-    return collect($decoded)
-        ->filter(fn ($item) => is_array($item))
-        ->map(fn ($item) => array_merge(['is_read' => false, 'status' => 'new'], $item))
-        ->sortByDesc(fn ($item) => $item['submitted_at'] ?? '')
-        ->values();
-};
-
-Route::get('/properties', function () use ($loadReservations) {
+Route::get('/properties', function () {
     if (!session('logged_in')) {
         return redirect()->route('home');
     }
@@ -155,13 +137,13 @@ Route::get('/properties', function () use ($loadReservations) {
 
     $recentProperties = $properties->take(3);
     $ownedSlugs = $properties->pluck('slug')->all();
-    $reservations = $loadReservations();
-    $ownedReservations = $reservations
+    $ownedReservations = Reservation::query()
         ->whereIn('property_slug', $ownedSlugs)
-        ->values();
-    $unreadReservations = $reservations
+        ->orderByDesc('submitted_at')
+        ->get();
+    $unreadReservations = Reservation::query()
+        ->whereIn('property_slug', $ownedSlugs)
         ->where('is_read', false)
-        ->whereIn('property_slug', $ownedSlugs)
         ->count();
     $recentActivity = $properties
         ->sortByDesc(fn ($property) => optional($property->updated_at)->timestamp ?? 0)
@@ -195,10 +177,10 @@ Route::get('/properties', function () use ($loadReservations) {
         });
     $latestOwnedReservations = $ownedReservations->take(3)->map(function ($reservation) {
         return [
-            'client_name' => $reservation['client_name'] ?? 'Unknown client',
-            'property_name' => $reservation['property_name'] ?? 'Unknown property',
-            'status' => $reservation['status'] ?? 'new',
-            'submitted_at' => !empty($reservation['submitted_at']) ? \Carbon\Carbon::parse($reservation['submitted_at']) : null,
+            'client_name' => $reservation->client_name ?: 'Unknown client',
+            'property_name' => $reservation->property_name ?: 'Unknown property',
+            'status' => $reservation->status ?: 'new',
+            'submitted_at' => $reservation->submitted_at,
         ];
     });
     $topPerformingListing = $properties
@@ -209,7 +191,7 @@ Route::get('/properties', function () use ($loadReservations) {
     $topListingReservations = $topPerformingListing
         ? $ownedReservations->where('property_slug', $topPerformingListing->slug)->count()
         : 0;
-    $acceptedReservations = $ownedReservations->where('status', 'accepted')->count();
+    $acceptedReservations = $ownedReservations->where('status', 'confirmed')->count();
     $newReservations = $ownedReservations->where('status', 'new')->count();
     $conversionRate = $ownedReservations->count() > 0
         ? round(($acceptedReservations / $ownedReservations->count()) * 100)
@@ -261,7 +243,7 @@ Route::put('/listings/{slug}', [PropertyController::class, 'update'])->name('lis
 Route::delete('/listings/{slug}', [PropertyController::class, 'destroy'])->name('listings.destroy');
 
 Route::get('/details/{slug}', [PropertyController::class, 'show'])->name('details');
-Route::post('/reservations', function (Request $request) use ($reservationPath, $loadReservations) {
+Route::post('/reservations', function (Request $request) {
     $validated = $request->validate([
         'slug' => 'required|string|exists:properties,slug',
         'client_name' => 'required|string|max:255',
@@ -270,10 +252,9 @@ Route::post('/reservations', function (Request $request) use ($reservationPath, 
 
     $property = Property::where('slug', $validated['slug'])->firstOrFail();
 
-    $existingReservations = $loadReservations()->values()->all();
-
-    $existingReservations[] = [
+    Reservation::create([
         'id' => (string) Str::uuid(),
+        'property_id' => $property->id,
         'property_slug' => $property->slug,
         'property_name' => $property->name,
         'client_name' => $validated['client_name'],
@@ -281,16 +262,14 @@ Route::post('/reservations', function (Request $request) use ($reservationPath, 
         'submitted_at' => now()->toDateTimeString(),
         'is_read' => false,
         'status' => 'new',
-    ];
-
-    File::put($reservationPath, json_encode($existingReservations, JSON_PRETTY_PRINT));
+    ]);
 
     return redirect()
         ->route('details', ['slug' => $property->slug])
         ->with('reservation_status', 'Reservation request sent successfully. Our team will contact you soon.');
 })->name('reservations.store');
 
-Route::get('/reservations', function () use ($loadReservations, $reservationPath) {
+Route::get('/reservations', function () {
     if (!session('logged_in')) {
         return redirect()->route('login');
     }
@@ -303,31 +282,30 @@ Route::get('/reservations', function () use ($loadReservations, $reservationPath
 
     $ownedSlugs = Property::where('user_id', $currentUserId)->pluck('slug')->all();
 
-    $reservations = $loadReservations()->whereIn('property_slug', $ownedSlugs)->values();
+    $reservations = Reservation::query()
+        ->whereIn('property_slug', $ownedSlugs)
+        ->orderByDesc('submitted_at')
+        ->get();
 
     if ($reservations->where('is_read', false)->isNotEmpty()) {
-        $allReservations = $loadReservations();
+        Reservation::query()
+            ->whereIn('property_slug', $ownedSlugs)
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
 
-        $markedRead = $allReservations
-            ->map(function ($reservation) use ($ownedSlugs) {
-                if (($reservation['is_read'] ?? false) === false && in_array($reservation['property_slug'] ?? '', $ownedSlugs, true)) {
-                    $reservation['is_read'] = true;
-                }
-                return $reservation;
-            })
-            ->values()
-            ->all();
-
-        File::put($reservationPath, json_encode($markedRead, JSON_PRETTY_PRINT));
-        $reservations = collect($markedRead)->whereIn('property_slug', $ownedSlugs)->values();
+        $reservations = Reservation::query()
+            ->whereIn('property_slug', $ownedSlugs)
+            ->orderByDesc('submitted_at')
+            ->get();
     }
 
     return view('reservations', [
-        'reservations' => $reservations->where('status', '!=', 'accepted')->values(),
+        'activeReservations' => $reservations->where('status', '!=', 'done')->values(),
+        'reservationHistory' => $reservations->where('status', 'done')->values(),
     ]);
 })->name('reservations');
 
-Route::post('/reservations/{id}/accept', function (string $id) use ($loadReservations, $reservationPath) {
+Route::post('/reservations/{id}/confirm', function (string $id) {
     if (!session('logged_in')) {
         return redirect()->route('login');
     }
@@ -340,31 +318,59 @@ Route::post('/reservations/{id}/accept', function (string $id) use ($loadReserva
 
     $ownedSlugs = Property::where('user_id', $currentUserId)->pluck('slug')->all();
 
-    $reservations = $loadReservations();
+    $confirmedReservation = Reservation::query()->find($id);
 
-    $updated = $reservations->map(function ($reservation) use ($id) {
-        if (($reservation['id'] ?? null) !== $id) {
-            return $reservation;
-        }
-
-        $reservation['status'] = 'accepted';
-        $reservation['is_read'] = true;
-        $reservation['accepted_at'] = now()->toDateTimeString();
-
-        return $reservation;
-    })->values()->all();
-
-    $acceptedReservation = collect($updated)->first(fn ($reservation) => ($reservation['id'] ?? null) === $id);
-
-    if (!$acceptedReservation || !in_array($acceptedReservation['property_slug'] ?? '', $ownedSlugs, true)) {
+    if (
+        !$confirmedReservation
+        || !in_array($confirmedReservation->property_slug ?? '', $ownedSlugs, true)
+    ) {
         return redirect()
             ->route('reservations')
-            ->withErrors(['reservation' => 'You are not allowed to accept this reservation.']);
+            ->withErrors(['reservation' => 'You are not allowed to confirm this reservation.']);
     }
 
-    File::put($reservationPath, json_encode($updated, JSON_PRETTY_PRINT));
+    $confirmedReservation->update([
+        'status' => 'confirmed',
+        'is_read' => true,
+        'confirmed_at' => now(),
+    ]);
 
     return redirect()
         ->route('reservations')
-        ->with('status', 'Reservation accepted successfully.');
-})->name('reservations.accept');
+        ->with('status', 'Appointment confirmed successfully.');
+})->name('reservations.confirm');
+
+Route::post('/reservations/{id}/done', function (string $id) {
+    if (!session('logged_in')) {
+        return redirect()->route('login');
+    }
+
+    $currentUserId = session('user_id');
+
+    if (!$currentUserId) {
+        return redirect()->route('login');
+    }
+
+    $ownedSlugs = Property::where('user_id', $currentUserId)->pluck('slug')->all();
+
+    $completedReservation = Reservation::query()->find($id);
+
+    if (
+        !$completedReservation
+        || !in_array($completedReservation->property_slug ?? '', $ownedSlugs, true)
+    ) {
+        return redirect()
+            ->route('reservations')
+            ->withErrors(['reservation' => 'You are not allowed to complete this reservation.']);
+    }
+
+    $completedReservation->update([
+        'status' => 'done',
+        'is_read' => true,
+        'done_at' => now(),
+    ]);
+
+    return redirect()
+        ->route('reservations')
+        ->with('status', 'Appointment marked as done.');
+})->name('reservations.done');
