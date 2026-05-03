@@ -298,6 +298,10 @@
         .guest-hero {
             padding: 1.5rem 1.15rem;
         }
+        .guest-search-head {
+            flex-direction: column;
+            align-items: flex-start;
+        }
         .guest-hero-title {
             max-width: 13ch;
             font-size: clamp(2.4rem, 9vw, 3.4rem);
@@ -309,6 +313,56 @@
         }
         .guest-showcase-media {
             height: 220px;
+        }
+        .guest-showcase-footer {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .guest-showcase-footer .btn {
+            width: 100%;
+        }
+    }
+    @media (max-width: 560px) {
+        .guest-hero {
+            padding: 1.2rem 0.95rem;
+            gap: 1rem;
+        }
+        .guest-hero-title {
+            max-width: none;
+            font-size: clamp(2rem, 10vw, 2.8rem);
+            line-height: 1;
+        }
+        .guest-hero-copy {
+            font-size: 0.96rem;
+        }
+        .guest-search-shell,
+        .guest-showcase-copy {
+            padding: 1rem;
+        }
+        .guest-showcase-media {
+            height: 190px;
+        }
+        .guest-showcase-badge,
+        .guest-showcase-score {
+            top: 0.75rem;
+            padding: 0.45rem 0.7rem;
+            font-size: 0.72rem;
+        }
+        .guest-showcase-badge {
+            left: 0.75rem;
+        }
+        .guest-showcase-score {
+            right: 0.75rem;
+        }
+        .guest-filter-row {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .guest-filter-chip {
+            justify-content: center;
+        }
+        .guest-side-panel {
+            padding: 0.9rem;
         }
     }
 </style>

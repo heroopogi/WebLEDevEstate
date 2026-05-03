@@ -59,6 +59,9 @@
                 font-size: 1rem;
                 line-height: 1;
             }
+            .logout-form {
+                display: contents;
+            }
 
             .container {
                 width: min(1600px, calc(100% - 2rem));
@@ -73,6 +76,7 @@
                 border-bottom: 1px solid rgba(16, 42, 68, 0.12);
                 backdrop-filter: blur(16px);
                 color: var(--text-dark);
+                transition: transform 0.22s ease, box-shadow 0.22s ease;
             }
             .nav-bar {
                 display: flex;
@@ -342,6 +346,8 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                gap: 0.85rem;
+                flex-wrap: wrap;
             }
             .price {
                 color: var(--gold);
@@ -1614,6 +1620,13 @@
                     width: 100%;
                     align-items: stretch;
                 }
+                .dashboard-banner-actions .btn {
+                    width: 100%;
+                    min-width: 0;
+                }
+                .dashboard-banner-meta {
+                    width: 100%;
+                }
                 .dashboard-stats-grid,
                 .dashboard-hero-grid,
                 .dashboard-metrics {
@@ -1638,13 +1651,73 @@
             }
             @media (max-width: 780px) {
                 .page-shell { padding: 1.5rem 0 2.5rem; }
+                .site-header.is-hidden-mobile {
+                    transform: translateY(calc(-100% - 8px));
+                }
                 .nav-bar { flex-direction: column; align-items: stretch; }
                 .nav-bar > .nav-actions,
                 .nav-links { margin-left: 0; }
-                .nav-actions { width: 100%; justify-content: space-between; }
-                .nav-links { width: 100%; justify-content: flex-start; }
+                .brand {
+                    width: 100%;
+                    justify-content: flex-start;
+                }
+                .nav-actions {
+                    width: 100%;
+                    justify-content: stretch;
+                    flex-direction: column;
+                    align-items: stretch;
+                }
+                .nav-links {
+                    width: 100%;
+                    justify-content: stretch;
+                    gap: 0.6rem;
+                }
+                .nav-links a {
+                    flex: 1 1 0;
+                    justify-content: center;
+                    min-width: 0;
+                }
+                .nav-actions .btn,
+                .logout-form .btn {
+                    width: 100%;
+                    min-width: 0;
+                    white-space: normal;
+                    padding: 0.8rem 1rem;
+                }
+                .brand-mark {
+                    width: 54px;
+                    height: 54px;
+                }
+                .brand-subtitle {
+                    font-size: 0.76rem;
+                }
                 .hero-title { font-size: clamp(2.4rem, 8vw, 3.4rem); }
                 .cta-panel { padding: 1.7rem; }
+                .page-card {
+                    padding: 1.15rem;
+                }
+                .property-grid {
+                    grid-template-columns: 1fr;
+                }
+                .property-media {
+                    height: 210px;
+                }
+                .property-body {
+                    padding: 1.1rem;
+                }
+                .property-meta {
+                    flex-wrap: wrap;
+                }
+                .property-meta span {
+                    max-width: 100%;
+                }
+                .price-row {
+                    flex-direction: column;
+                    align-items: stretch;
+                }
+                .price-row .btn {
+                    width: 100%;
+                }
                 .detail-card {
                     padding: 1rem;
                 }
@@ -1676,6 +1749,18 @@
                 .dashboard-banner {
                     padding: 1rem;
                 }
+                .dashboard-banner-meta {
+                    flex-direction: column;
+                    align-items: stretch;
+                }
+                .dashboard-pill {
+                    width: 100%;
+                    justify-content: center;
+                }
+                .dashboard-panel-heading {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
                 .dashboard-stats-grid,
                 .mini-stats-grid,
                 .recent-listings-grid {
@@ -1704,11 +1789,44 @@
                     width: var(--bar-width, 0%);
                 }
             }
+            @media (max-width: 560px) {
+                .container {
+                    width: min(100%, calc(100% - 0.75rem));
+                    padding-inline: 0.2rem;
+                }
+                .nav-links {
+                    flex-direction: column;
+                }
+                .nav-links a {
+                    width: 100%;
+                }
+                .hero h1 {
+                    font-size: 2rem;
+                }
+                .hero p {
+                    font-size: 0.98rem;
+                }
+                .section-title {
+                    font-size: 1.3rem;
+                }
+                .detail-card h3,
+                .dashboard-heading {
+                    font-size: clamp(1.65rem, 8vw, 2.2rem);
+                }
+                .dashboard-banner .dashboard-heading {
+                    font-size: clamp(1.65rem, 8vw, 2.15rem);
+                }
+                .dashboard-stat-card strong,
+                .mini-stat strong,
+                .price {
+                    white-space: normal;
+                }
+            }
         </style>
     </head>
     <body>
         <div class="page-shell">
-            <header class="site-header">
+            <header class="site-header" data-mobile-header>
                 <div class="container nav-bar">
                     <a href="{{ session('logged_in') ? route('properties') : route('home') }}" class="brand">
                         <span class="brand-mark">
@@ -1777,5 +1895,41 @@
                 @yield('content')
             </main>
         </div>
+        <script>
+            (() => {
+                const header = document.querySelector('[data-mobile-header]');
+
+                if (!header) {
+                    return;
+                }
+
+                const mobileQuery = window.matchMedia('(max-width: 780px)');
+                let lastScrollY = window.scrollY;
+
+                const syncHeaderVisibility = () => {
+                    if (!mobileQuery.matches) {
+                        header.classList.remove('is-hidden-mobile');
+                        lastScrollY = window.scrollY;
+                        return;
+                    }
+
+                    const currentScrollY = window.scrollY;
+                    const scrollingDown = currentScrollY > lastScrollY;
+                    const passedThreshold = currentScrollY > 96;
+
+                    if (scrollingDown && passedThreshold) {
+                        header.classList.add('is-hidden-mobile');
+                    } else {
+                        header.classList.remove('is-hidden-mobile');
+                    }
+
+                    lastScrollY = currentScrollY;
+                };
+
+                window.addEventListener('scroll', syncHeaderVisibility, { passive: true });
+                window.addEventListener('resize', syncHeaderVisibility);
+                syncHeaderVisibility();
+            })();
+        </script>
     </body>
 </html>
