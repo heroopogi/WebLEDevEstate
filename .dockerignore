@@ -1,0 +1,5 @@
+.git
+.vscode
+DevEstate/node_modules
+DevEstate/vendor
+DevEstate/.env
